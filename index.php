@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 /*
@@ -211,4 +212,3 @@ if( ! ini_get('date.timezone') )
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
-/* Location: ./index.php */

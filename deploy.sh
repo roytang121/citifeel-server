@@ -7,7 +7,7 @@ else
 	read -p "Please input your commit message: " message
 fi
 
-git commit -m $message
+git commit -m "$message"
 
 git push origin master
 git push openshift master

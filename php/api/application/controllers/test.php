@@ -7,7 +7,7 @@
 
 require_once (APPPATH. 'libraries/REST_Controller.php');
 
-class Driver extends REST_Controller {
+class Test extends REST_Controller {
 
 	public function __construct() {
 		parent::__construct();

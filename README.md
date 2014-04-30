@@ -193,7 +193,7 @@ Routine modification:
 - after modify the code:
   $git add *
   $git commit -m "mess"
-  $git push openshift master
+  $git push openshift master.
 
 
 

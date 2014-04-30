@@ -35,7 +35,7 @@ class Test extends REST_Controller {
         $user_array=$this->test_model->get_all_user();
 
         
-        $this->core_controller->add_return_data('test_data',$user_array )->successfully_processed();		
+        $this->core_controller->add_return_data('test_data',$user_array)->successfully_processed();		
 		
 	}
 

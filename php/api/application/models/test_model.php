@@ -15,7 +15,7 @@ class Test_model extends CI_Model {
 	
 	function get_all_user() {
 	    $result= $this->db->get($this->Table_name_user);
-	    echo 'db conn';
+	    //echo 'db conn';
 	    return $result->result_array();
 	}
 

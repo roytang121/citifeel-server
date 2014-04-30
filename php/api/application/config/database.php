@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '535b17a45973ca40100001b2-citifeel.rhcloud.com:56436';
+$db['default']['hostname'] = $_ENV['OPENSHIFT_MYSQL_DB_HOST'];
 $db['default']['username'] = 'adminEppJ4JK';
 $db['default']['password'] = 'eBq_FmWS3vCJ';
 $db['default']['database'] = 'server';

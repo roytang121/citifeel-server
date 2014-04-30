@@ -14,7 +14,7 @@ class Test_model extends CI_Model {
 	
 	
 	function get_all_user() {
-	    return $this->db->get($this->Table_name_driver)->result();
+	    return $this->db->get($this->Table_name_user)->result();
 	}
 
 }

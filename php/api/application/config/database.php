@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
+$db['default']['hostname'] = '535b17a45973ca40100001b2-citifeel.rhcloud.com:56436';
+$db['default']['username'] = 'adminEppJ4JK';
+$db['default']['password'] = 'eBq_FmWS3vCJ';
 $db['default']['database'] = '';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

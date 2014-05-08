@@ -2,12 +2,12 @@
 
 
 /**
- * Test
+ * User
  */
 
 require_once (APPPATH. 'libraries/REST_Controller.php');
 
-class Test extends REST_Controller {
+class User extends REST_Controller {
 
 	public function __construct() {
 		parent::__construct();

@@ -10,6 +10,7 @@ class User_model extends CI_Model {
 	var $Table_name_user = 'user';
 	
 	var $KEY_collection_privacy = 'collection_privacy';
+	var $KEY_user_id = 'user_id';
 	var $KEY_user_info = 'user_info';
 	var $KEY_email = 'email';
 	var $KEY_first_name = 'firstname';

@@ -8,9 +8,9 @@ $config['error'][0] = 'UNKNOWN ERROR.'; // do not use this except CORE_Controlle
 $config['error'][1] = 'Failed credential check.';
 $config['error'][2] = 'Standard validation error, you should use validation_error() function to generate exact message back to the app.';
 
-// XX related error message
-$config['error'][3] = '';
-$config['error'][4] = '';
+// Login related error message
+$config['error'][3] = 'User does not exist';
+$config['error'][4] = 'Wrong password';
 
 
 

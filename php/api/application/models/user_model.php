@@ -19,17 +19,29 @@ class User_model extends CI_Model {
 	var $KEY_status = 'status';
 	var $KEY_password = 'password';
 	
-	// http://www.citifeel.com/api/user/login
+	// (TOFIX) for testing, remove later
 	function get_all_user() {
 	    $result= $this->db->get($this->Table_name_user);
 	    //echo 'db conn';
 	    return $result->result_array();
 	}
 	
-	function get_user($email,$password) {
-	    $result= $this->db->get($this->Table_name_user);
-	    //echo 'db conn';
-	    return $result->result_array();
+	function get_user_by_email($email) {
+		return $this->get_user_by_key($this->KEY_email, $email);
+	}
+	
+	// helper
+	private function get_user_by_key($key, $value) {
+		$result = $this->db->from($this->Table_name_user)
+							->where($key, $value)
+							->get();
+
+		if ($result->num_rows() > 0) {
+			return $result->row_array(1);
+		} else {
+			return array();
+		}
+
 	}
 
 }

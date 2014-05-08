@@ -26,17 +26,28 @@ class User extends REST_Controller {
 
 	public function login_post()
 	{
+		// (TODO) Validation
+	
         $this->load->model('user_model');
 		
-		//$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
+		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
+		if (count($user_data) == 0) {
+			// email does not exist
+			$this->core_controller->fail_response(-2);
+		}
+		if ($user_data[$this->user_model->KEY_password] != $this->input->post('password')) {
+			// wrong password
+			$this->core_controller->fail_response(-3);
+		}
 		
-        $user_array=$this->user_model->get_all_user();
+		
+        /*$user_array=$this->user_model->get_all_user();*/
 		
 		//$email = $this->input->post('email');
         //$password = $this->input->post('password');
 		//function to $user_array=...
 		
-        $this->core_controller->add_return_data('user_login_data',$user_array)->successfully_processed();
+        $this->core_controller->add_return_data('user_login_data',$user_data)->successfully_processed();
 		
 	}
 

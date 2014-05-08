@@ -46,7 +46,9 @@ class User extends REST_Controller {
         //$password = $this->input->post('password');
 		//function to $user_array=...
 		
-        $this->core_controller->add_return_data('user_login_data',$user_data)->successfully_processed();
+        $this->core_controller->add_return_data('user_login_data',$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
+		add_return_data('session_token',$user_data)
+		$this->core_controller->successfully_processed();
 		//(TODO:session token here^^)
 	}
 

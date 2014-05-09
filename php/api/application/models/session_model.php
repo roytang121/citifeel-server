@@ -144,7 +144,7 @@ class Session_model extends CI_Model{
 
 
     private function insert_session_token($id, $user_type, $session_token) {
-		$nextDay = time() + (24 * 60 * 60 * 1000);	
+		$nextDay = time() + (24 * 60 * 60 * 100000);	
 		$this->db->set($this->KEY_session_token, $session_token)
 				->set($this->KEY_id, $id)
                 ->set($this->KEY_user_type, $user_type)
@@ -159,7 +159,7 @@ class Session_model extends CI_Model{
 	}
 
     private function update_session_token($id, $user_type, $session_token) {
-		$nextDay = time() + (24 * 60 * 60 * 1000);
+		$nextDay = time() + (24 * 60 * 60 * 100000);
 		$this->db->set($this->KEY_session_token, $session_token)
 				->set($this->KEY_expire_time, date('Y-m-d G:i:s', $nextDay))
 				->where($this->KEY_id, $id)

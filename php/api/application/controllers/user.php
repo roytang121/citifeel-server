@@ -30,7 +30,7 @@ class User extends REST_Controller {
 	
 	// (DEBUG: this function is for testing purpose only, to be removed)
 	public function test_function_post(){
-		$this->load->model('user_model');
+		$this->load->model('user_model'); 
 		$result = $this->user_model->check_if_user_exists($this->user_model->KEY_email,$this->input->post('email'));
 		$this->core_controller->add_return_data('result', $result); 
 		$this->core_controller->successfully_processed();

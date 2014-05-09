@@ -109,7 +109,7 @@ class User extends REST_Controller {
         } else {
             // Get user's data 
             $fb_user = $this->facebook->api('/me');
-            $this->core_controller->add_return_data('user_fb_data', $user); 
+            $this->core_controller->add_return_data('user_fb_data', $fb_user); 
 
             //if user is first time login with fb api
             //create an entry record in our user table
@@ -128,7 +128,7 @@ class User extends REST_Controller {
 		                $this->core_controller->fail_response(6);
 		         }	
 		
-			    $new_session_token = $this->get_valid_session_token_for_user($user_id]);
+			    $new_session_token = $this->get_valid_session_token_for_user($user_id);
 			    $this->core_controller->add_return_data('user_id',$user_id);
 			    
 

@@ -18,7 +18,7 @@ class User extends REST_Controller {
 		$CI->config->load("facebook",TRUE);
 		$config = $CI->config->item('facebook');
 		$this->load->library('Facebook', $config);
-		$this->load->library('base_facebook',$config);
+		$this->load->library('Base_facebook',$config);
 	
 	}
 

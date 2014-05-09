@@ -58,12 +58,8 @@ class User extends REST_Controller {
         $user_id = $this->user_model->add_user($data);
         if ($user_id < 0) {
                 $this->core_controller->fail_response(11);
-        }	
-		
-		$new_session_token = $this->get_valid_session_token_for_user($user_id); 
-		
+        }
         $this->core_controller->add_return_data('user_id',$user_id);
-		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
 		$this->core_controller->successfully_processed();
 	}
 
@@ -87,6 +83,7 @@ class User extends REST_Controller {
 		
         $this->core_controller->add_return_data('user_login_data',$user_data);
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
+		//(TODO) session expire time
 		$this->core_controller->successfully_processed();
 	}
 

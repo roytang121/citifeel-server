@@ -20,10 +20,9 @@ class User_model extends CI_Model {
 	var $KEY_status = 'status';
 	var $KEY_password = 'password';
 	
-	// (TOFIX) for testing, remove later
+	
 	function get_all_user() {
 	    $result= $this->db->get($this->Table_name_user);
-	    //echo 'db conn';
 	    return $result->result_array();
 	}
 	

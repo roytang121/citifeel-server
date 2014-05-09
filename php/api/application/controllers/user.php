@@ -14,6 +14,11 @@ class User extends REST_Controller {
 		$this->load->library('CORE_Controller');
 		$this->load->helper(array('form', 'url'));
 		$this->core_controller->set_response_helper($this);
+		$CI = & get_instance();
+		$CI->config->load("facebook",TRUE);
+		$config = $CI->config->item('facebook');
+		$this->load->library('Facebook', $config);
+		$this->load->library('base_facebook',$config);
 	
 	}
 
@@ -50,6 +55,28 @@ class User extends REST_Controller {
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
 		$this->core_controller->successfully_processed();
 		//(TODO:session token here^^)
+	}
+
+	public function loginfb_post()
+	{
+	
+        // Try to get the user's id on Facebook
+        $accessToken_fb=$this->input->post('access_token');
+        $this->base_facebook->setAccessToken($accessToken_fb);
+        $userId = $this->facebook->getUser();
+ 
+        // If user is not yet authenticated, the id will be zero
+        if($userId == 0){
+            // Generate a login url
+            $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
+            $this->load->view('main_index', $data);
+        } else {
+            // Get user's data and print it
+            $user = $this->facebook->api('/me');
+            $this->core_controller->add_return_data('user', $user); 
+        }
+		
+		
 	}
 
 	/* helper function */

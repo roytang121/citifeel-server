@@ -134,7 +134,7 @@ class User extends REST_Controller {
 
 
 	        }else{
-	        	$new_session_token = $this->get_valid_session_token_for_user($user[$this->user_model->KEY_user_id]]);
+	        	$new_session_token = $this->get_valid_session_token_for_user($user[$this->user_model->KEY_user_id]);
 
 	        }
 	        $this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 

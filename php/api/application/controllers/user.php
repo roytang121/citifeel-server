@@ -92,6 +92,7 @@ class User extends REST_Controller {
 
 	public function loginfb_post()
 	{
+		$this->load->model('user_model');
 	
         // Try to get the user's id on Facebook
         $accessToken_fb=$this->input->post('access_token');
@@ -114,8 +115,14 @@ class User extends REST_Controller {
 
             //if user is first time login with fb api
             //create an entry record in our user table
+            $existance = $this->user_model->check_if_user_exists($this->user_model->KEY_email, $user['email']);
+	        if (!$existance) {
+	            //create an entry record for future activity 
 
+
+	        }
             $this->core_controller->successfully_processed();
+            
         }
 		
 		

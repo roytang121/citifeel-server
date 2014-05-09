@@ -35,13 +35,20 @@ class Test extends REST_Controller {
         $this->load->model('test_model');
 
         $user_array=$this->test_model->get_all_user();
-
+        $user_array=$this->hide_user_data($user_array);
         
-        $this->core_controller->add_return_data('test_data',$user_array)->successfully_processed();		
+        $this->core_controller->add_return_data('users',$user_array)->successfully_processed();		
 		
 	}
 
-	
+	private function hide_user_data($user_data_array) {
+		$this->load->model('user_model');
+		if (array_key_exists($this->user_model->KEY_password, $user_data_array)) {
+			unset($user_data_array[$this->user_model->KEY_password]);
+		}
+
+		return $user_data_array;
+	}
 
 	
 

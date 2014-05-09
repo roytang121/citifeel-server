@@ -29,8 +29,8 @@ class User extends REST_Controller {
 	}
 	
 	// (DEBUG: this function is for testing purpose only, to be removed)
-	/*public function test_function_post(){
-		$this->load->model('user_model');
+	public function test_function_post(){
+		$this->load->model('user_model'); 
 		$result = $this->user_model->check_if_user_exists($this->user_model->KEY_email,$this->input->post('email'));
 		$this->core_controller->add_return_data('result', $result); 
 		$this->core_controller->successfully_processed();
@@ -65,7 +65,7 @@ class User extends REST_Controller {
         $this->core_controller->add_return_data('user_id',$user_id);
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
 		$this->core_controller->successfully_processed();
-	}*/
+	}
 
 	public function login_post()
 	{

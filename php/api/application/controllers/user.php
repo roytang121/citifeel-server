@@ -18,7 +18,6 @@ class User extends REST_Controller {
 		$CI->config->load("facebook",TRUE);
 		$config = $CI->config->item('facebook');
 		$this->load->library('Facebook', $config);
-		$this->load->library('base_facebook',$config);
 	
 	}
 
@@ -62,7 +61,7 @@ class User extends REST_Controller {
 	
         // Try to get the user's id on Facebook
         $accessToken_fb=$this->input->post('access_token');
-        $this->BaseFacebook->setAccessToken($accessToken_fb);
+        $this->facebook->setAccessToken($accessToken_fb);
         $userId = $this->facebook->getUser();
  
         // If user is not yet authenticated, the id will be zero

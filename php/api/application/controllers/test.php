@@ -22,14 +22,9 @@ class Test extends REST_Controller {
 	*/
 	public function testDBConn_get()
 	{
-
-		
-
         $this->load->model('test_model');
 
         $user_array=$this->test_model->get_all_user();
-        $user_array=$this->hide_user_data($user_array);
-        
         $this->core_controller->add_return_data('number of users',count($user_array))->successfully_processed();		
 		
 	}

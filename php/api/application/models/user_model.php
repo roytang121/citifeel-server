@@ -27,6 +27,17 @@ class User_model extends CI_Model {
 	    return $result->result_array();
 	}
 	
+	private function check_if_user_exists($key, $value) {
+		$number_of_result = $this->db->from($this->Table_name_user)
+							->where($key, $value)
+							->count_all_results();
+		if ($number_of_result > 0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 	function get_user_by_email($email) {
 		return $this->get_user_by_key($this->KEY_email, $email);
 	}

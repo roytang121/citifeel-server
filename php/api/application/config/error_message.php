@@ -12,6 +12,9 @@ $config['error'][2] = 'Standard validation error, you should use validation_erro
 $config['error'][3] = 'User does not exist';
 $config['error'][4] = 'Wrong password';
 
+// FB login related error message
+$config['error'][5] = 'FaceBook login failed! Invalid access token';
+
 
 
 /* End of file error_message.php */

@@ -67,10 +67,10 @@ class User extends REST_Controller {
         // If user is not yet authenticated, the id will be zero
         if($userId == 0){
             // Generate a login url
-            $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
-             $this->core_controller->add_return_data('data', $data); 
-             $this->core_controller->successfully_processed();
-            //$this->load->view('main_index', $data);
+             $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
+             $this->core_controller->add_return_data('login_url', $data['url']); 
+             $this->core_controller->fail_response(5);
+  
         } else {
             // Get user's data and print it
             $user = $this->facebook->api('/me');

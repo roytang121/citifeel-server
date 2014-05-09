@@ -14,6 +14,7 @@ $config['error'][4] = 'Wrong password';
 
 // FB login related error message
 $config['error'][5] = 'FaceBook login failed! Invalid access token';
+$config['error'][6] = 'Cannot create an user entry in our db from fb first time login';
 
 // Register_related error message
 $config['error'][10] = 'User already exists';

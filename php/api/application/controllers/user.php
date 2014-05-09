@@ -68,12 +68,14 @@ class User extends REST_Controller {
         if($userId == 0){
             // Generate a login url
             $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
-             $this->core_controller->add_return_data('date', $data); 
+             $this->core_controller->add_return_data('data', $data); 
+             $this->core_controller->successfully_processed();
             //$this->load->view('main_index', $data);
         } else {
             // Get user's data and print it
             $user = $this->facebook->api('/me');
             $this->core_controller->add_return_data('user', $user); 
+            $this->core_controller->successfully_processed();
         }
 		
 		

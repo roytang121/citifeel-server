@@ -128,7 +128,7 @@ class User extends REST_Controller {
 		                $this->core_controller->fail_response(6);
 		         }	
 		
-			    $new_session_token = $this->get_valid_session_token_for_user($user_id]);
+			    $new_session_token = $this->get_valid_session_token_for_user($user_id);
 			    $this->core_controller->add_return_data('user_id',$user_id);
 			    
 

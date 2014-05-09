@@ -17,15 +17,8 @@ class Test extends REST_Controller {
 	
 	}
 
-	var $user_type = '';
-
-	public function index()
-	{
-		
-	}
-
 	/**
-	*  
+	*  for testing only
 	*/
 	public function testDBConn_get()
 	{

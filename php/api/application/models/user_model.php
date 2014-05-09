@@ -16,22 +16,29 @@ class User_model extends CI_Model {
 	var $KEY_first_name = 'firstname';
 	var $KEY_last_name = 'lastname';
 	var $KEY_profile_pic = 'profile_pic';
-	var $KEY_fb_id = 'fb_id';
 	var $KEY_status = 'status';
 	var $KEY_password = 'password';
-	
-	// (TOFIX) for testing, remove later
-	function get_all_user() {
-	    $result= $this->db->get($this->Table_name_user);
-	    //echo 'db conn';
-	    return $result->result_array();
+
+	function add_user($data) {
+		$this->db->insert($this->Table_name_user, $data);	//(DEBUG: how it works)
+		if ($this->db->affected_rows() > 0) {
+			return $this->db->insert_id();
+		} else {
+			return -1;
+		}
 	}
+	
+	function is_user_exists_by_email($email) {
+		return $this->is_user_exists($this->KEY_email, $email);
+	}
+	
 	
 	function get_user_by_email($email) {
 		return $this->get_user_by_key($this->KEY_email, $email);
 	}
 	
 	// helper
+	// (TODO: hide password) 
 	private function get_user_by_key($key, $value) {
 		$result = $this->db->from($this->Table_name_user)
 							->where($key, $value)
@@ -43,6 +50,17 @@ class User_model extends CI_Model {
 			return array();
 		}
 
+	}
+	
+	private function is_user_exists($key, $value) {
+		$number_of_result = $this->db->from($this->Table_name_user)
+							->where($key, $value)
+							->count_all_results();
+		if ($number_of_result > 0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 
 }

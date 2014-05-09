@@ -27,6 +27,45 @@ class User extends REST_Controller {
 	{
 		
 	}
+	
+	// (DEBUG: this function is for testing purpose only, to be removed)
+	public function test_function_post(){
+		$this->load->model('user_model');
+		$result = $this->user_model->is_user_exists_by_email($this->input->post('email'));
+		$this->core_controller->add_return_data('result', $result); 
+		$this->core_controller->successfully_processed();
+	}
+	
+	// (DEBUG: not yet test)
+	// input: email, firstname, lastname, password
+	public function register_post()
+	{
+		// (TODO) Validation
+	
+        $this->load->model('user_model');
+
+        $existance = $this->user_model->is_user_exists_by_email($this->input->post('email'));
+        if ($existance) {
+            $this->core_controller->fail_response(10);
+        }
+
+        $data = array(
+                $this->user_model->KEY_first_name => $this->input->post('firstname'),
+                $this->user_model->KEY_last_name => $this->input->post('lastname'),
+                $this->user_model->KEY_password => $this->input->post('password'),
+                $this->user_model->KEY_email => $this->input->post('email')
+        );
+        $user_id = $this->user_model->add_user($data);
+        if ($user_id < 0) {
+                $this->core_controller->fail_response(11);
+        }	
+		
+		$new_session_token = $this->get_valid_session_token_for_user($user_id]);
+		
+        $this->core_controller->add_return_data('user_id',$user_id);
+		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
+		$this->core_controller->successfully_processed();
+	}
 
 	public function login_post()
 	{
@@ -46,14 +85,9 @@ class User extends REST_Controller {
 		
 		$new_session_token = $this->get_valid_session_token_for_user($user_data[$this->user_model->KEY_user_id]);
 		
-		//$email = $this->input->post('email');
-        //$password = $this->input->post('password');
-		//function to $user_array=...
-		
         $this->core_controller->add_return_data('user_login_data',$user_data);
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
 		$this->core_controller->successfully_processed();
-		//(TODO:session token here^^)
 	}
 
 	public function loginfb_post()

@@ -74,7 +74,8 @@ class User extends REST_Controller {
         } else {
             // Get user's data and print it
             $user = $this->facebook->api('/me');
-            $this->core_controller->add_return_data('user', $user); 
+            $profile_pic= $this->facebook->api('/me/picture');
+            $this->core_controller->add_return_data('user_fb_data', $user); 
             $this->core_controller->successfully_processed();
         }
 		

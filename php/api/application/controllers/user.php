@@ -108,19 +108,36 @@ class User extends REST_Controller {
   
         } else {
             // Get user's data 
-            $user = $this->facebook->api('/me');
-            $profile_pic= $this->facebook->api('/me/picture');
+            $fb_user = $this->facebook->api('/me');
             $this->core_controller->add_return_data('user_fb_data', $user); 
-            $this->core_controller->add_return_data('user_profile_pic', $profile_pic); 
 
             //if user is first time login with fb api
             //create an entry record in our user table
-            $existance = $this->user_model->check_if_user_exists($this->user_model->KEY_email, $user['email']);
-	        if (!$existance) {
+            $user = $this->user_model->get_user_by_email($fb_user['email']);
+            
+	        if (!$user) {
 	            //create an entry record for future activity 
+	             $data = array(
+	                $this->user_model->KEY_first_name => $fb_user['first_name'],
+	                $this->user_model->KEY_last_name =>  $fb_user['last_name'],
+	                $this->user_model->KEY_email => $fb_user['email']
+       			 );
+       			 $user_id = $this->user_model->add_user($data);
 
+		         if ($user_id < 0) {
+		                $this->core_controller->fail_response(6);
+		         }	
+		
+			    $new_session_token = $this->get_valid_session_token_for_user($user_id]);
+			    $this->core_controller->add_return_data('user_id',$user_id);
+			    
+
+
+	        }else{
+	        	$new_session_token = $this->get_valid_session_token_for_user($user[$this->user_model->KEY_user_id]]);
 
 	        }
+	        $this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
             $this->core_controller->successfully_processed();
             
         }

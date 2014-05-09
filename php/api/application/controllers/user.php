@@ -66,16 +66,21 @@ class User extends REST_Controller {
  
         // If user is not yet authenticated, the id will be zero
         if($userId == 0){
-            // Generate a login url
+            // invalid access token, return with error
              $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
              $this->core_controller->add_return_data('login_url', $data['url']); 
              $this->core_controller->fail_response(5);
   
         } else {
-            // Get user's data and print it
+            // Get user's data 
             $user = $this->facebook->api('/me');
             $profile_pic= $this->facebook->api('/me/picture');
             $this->core_controller->add_return_data('user_fb_data', $user); 
+            $this->core_controller->add_return_data('user_profile_pic', $profile_pic); 
+
+            //if user is first time login with fb api
+            //create an entry record in our user table
+
             $this->core_controller->successfully_processed();
         }
 		

@@ -28,22 +28,6 @@ class User_model extends CI_Model {
 		}
 	}
 	
-	function is_user_exists_by_email($email) {
-		return $this->is_user_exists($this->KEY_email, $email);
-	}
-	
-	
-	private function check_if_user_exists($key, $value) {
-		$number_of_result = $this->db->from($this->Table_name_user)
-							->where($key, $value)
-							->count_all_results();
-		if ($number_of_result > 0) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-
 	function get_user_by_email($email) {
 		return $this->get_user_by_key($this->KEY_email, $email);
 	}
@@ -63,7 +47,7 @@ class User_model extends CI_Model {
 
 	}
 	
-	private function is_user_exists($key, $value) {
+	private function check_if_user_exists($key, $value) {
 		$number_of_result = $this->db->from($this->Table_name_user)
 							->where($key, $value)
 							->count_all_results();
@@ -73,7 +57,6 @@ class User_model extends CI_Model {
 			return FALSE;
 		}
 	}
-
 }
 
 /* End of file test_model.php */

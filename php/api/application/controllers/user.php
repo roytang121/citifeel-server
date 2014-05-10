@@ -87,7 +87,7 @@ class User extends REST_Controller {
 		$this->core_controller->successfully_processed();
 	}
 
-	public function loginfb_post()
+	public function fblogin_post()
 	{
 		$this->load->model('user_model');
 	

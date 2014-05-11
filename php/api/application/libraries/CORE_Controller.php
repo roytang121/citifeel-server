@@ -39,7 +39,7 @@ class CORE_Controller {
             
         } else if ($this->credentials_check() === TRUE) {
             $this->response_data['session_token'] = $this->session['session_token'];
-            $this->response_data['expire_time'] = $this->session['expire_time'];
+            //$this->response_data['expire_time'] = $this->session['expire_time'];
         } else {
             $this->fail_response(1);
         }
@@ -98,9 +98,9 @@ class CORE_Controller {
     
     private function credentials_check() {
 
-        $input_email = $this->CI->input->get_request_header('X-taxibook-email', TRUE);
-        $input_session_token = $this->CI->input->get_request_header('X-taxibook-session-token', TRUE);
-        $input_user_type = $this->CI->input->get_request_header('X-taxibook-user-type', TRUE);
+        $input_email = $this->CI->input->get_request_header('X-citifeel-email', TRUE);
+        $input_session_token = $this->CI->input->get_request_header('X-citifeel-session-token', TRUE);
+        $input_user_type = $this->CI->input->get_request_header('X-citifeel-user-type', TRUE);
 
         if ($input_email == FALSE || $input_user_type == FALSE || $input_session_token == FALSE) {
             return FALSE;
@@ -109,11 +109,11 @@ class CORE_Controller {
         
         $this->CI->load->model('session_model');
         $user_type = 0;
-        if ($input_user_type == 'passenger') {
+        if ($input_user_type == 'user') {
             
-            $user_type = 'passenger';
-            $this->CI->load->model('passenger_model');
-            $user_detail = $this->CI->passenger_model->get_passenger_by_email($input_email);
+            $user_type = 'user';
+            $this->CI->load->model('user_model');
+            $user_detail = $this->CI->user_model->get_user_by_email($input_email);
 
             // check if passenger exists
             if (count($user_detail) == 0) {
@@ -121,11 +121,11 @@ class CORE_Controller {
             }
 
             $this->current_user_obj = $user_detail;
-            $id = $user_detail['pid'];
+            $id = $user_detail['user_id'];
 
-        } else if ($input_user_type == 'driver') {
+        } else if ($input_user_type == 'admin') {
 
-            $user_type = 'driver';
+           /* $user_type = 'driver';
             $this->CI->load->model('driver_model');
             $user_detail = $this->CI->driver_model->get_driver_by_email($input_email);
 
@@ -135,20 +135,7 @@ class CORE_Controller {
             }
 
             $this->current_user_obj = $user_detail;
-            $id = $user_detail['did'];
-        }else if ($input_user_type == 'admin') {
-
-            $user_type = 'admin';
-            $this->CI->load->model('admin_model');
-            $user_detail = $this->CI->admin_model->get_admin_by_email($input_email);
-
-            // check if driver exists
-            if (count($user_detail) == 0) {
-                return FALSE;
-            }
-
-            $this->current_user_obj = $user_detail;
-            $id = $user_detail['id'];
+            $id = $user_detail['did'];*/
         }
         
         $result = $this->CI->session_model->get_session_by_id($id, $user_type);
@@ -157,13 +144,13 @@ class CORE_Controller {
             // has session token, check
             
             if ($input_session_token && $input_session_token == $result['session_token']) {
-                if (time() - strtotime($result['expire_time']) >= 0) {
-                    $this->CI->session_model->generate_new_session_token($id, $user_type);
-                    $this->session = $this->CI->session_model->get_session_by_id($id, $user_type);
-                } else {
+               // if (time() - strtotime($result['expire_time']) >= 0) {
+               //     $this->CI->session_model->generate_new_session_token($id, $user_type);
+               //     $this->session = $this->CI->session_model->get_session_by_id($id, $user_type);
+               // } else {
                     $this->session['session_token'] = $result['session_token'];
-                    $this->session['expire_time'] = $result['expire_time'];
-                }
+                   // $this->session['expire_time'] = $result['expire_time'];
+               // }
                 return TRUE;
             } else {
                 return FALSE;

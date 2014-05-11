@@ -11,7 +11,7 @@ class CORE_Controller {
     
     protected $current_user_obj = null;
     private $white_list_uri = array(
-	'test/testDBConn','user/login','user/loginfb','user/register','user/test_function'); // this will indicate the script not to run security check
+	'test/testDBConn','user/login','user/fblogin','user/register','user/test_function'); // this will indicate the script not to run security check
     private $session = null;
     private $response_data = array();
     private $CI = null;

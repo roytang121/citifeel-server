@@ -80,10 +80,14 @@ class User extends REST_Controller {
 		}
 		
 		$new_session_token = $this->get_valid_session_token_for_user($user_data[$this->user_model->KEY_user_id]);
+
+		foreach ($this->hide_user_data($user_data) as $key => $value) {
+			$this->core_controller->add_return_data($key, $value);
+		}
+
+		$this->core_controller->add_return_data('session_token', $new_session_token['session_token'])
+							->add_return_data('expire_time', $new_session_token['expire_time']);
 		
-        $this->core_controller->add_return_data('user_login_data',$user_data);
-		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
-		//(TODO) session expire time
 		$this->core_controller->successfully_processed();
 	}
 
@@ -157,20 +161,20 @@ class User extends REST_Controller {
         $this->session_model->generate_new_session_token($id, $this->user_type);
         return $this->session_model->get_session_by_id($id, $this->user_type);
 	}
-	/*
 	
-	private function hide_user_data($driver_data_array) {
+	
+	private function hide_user_data($user_data_array) {
 		$this->load->model('user_model');
-		if (array_key_exists($this->driver_model->KEY_password, $driver_data_array)) {
-			unset($driver_data_array[$this->driver_model->KEY_password]);
+		if (array_key_exists($this->user_model->KEY_password, $user_data_array)) {
+			unset($user_data_array[$this->user_model->KEY_password]);
 		}
 
-		return $driver_data_array;
-	}*/
+		return $user_data_array;
+	}
 
 	
 
 }
 
-/* End of file test.php */
-/* Location: ./application/controllers/test.php */
+/* End of file user.php */
+/* Location: ./application/controllers/user.php */

@@ -42,6 +42,10 @@ class User_model extends CI_Model {
 	function get_user_by_email($email) {
 		return $this->get_user_by_key($this->KEY_email, $email);
 	}
+
+	function get_user_by_id($id) {
+		return $this->get_user_by_key($this->KEY_user_id, $id);
+	}
 	
 	// helper
 	// (TODO: hide password) 

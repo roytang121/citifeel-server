@@ -98,10 +98,10 @@ class User extends REST_Controller {
         // Try to get the user's id on Facebook
         $accessToken_fb=$this->input->post('access_token');
         $this->facebook->setAccessToken($accessToken_fb);
-        $userId = $this->facebook->getUser();
+        $userfbId = $this->facebook->getUser();
  
         // If user is not yet authenticated, the id will be zero
-        if($userId == 0){
+        if($userfbId == 0){
             // invalid access token, return with error
              $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
              $this->core_controller->add_return_data('login_url', $data['url']); 
@@ -110,13 +110,13 @@ class User extends REST_Controller {
         } else {
             // Get user's data 
             $fb_user = $this->facebook->api('/me');
-            $this->core_controller->add_return_data('user_fb_data', $fb_user); 
+            $this->core_controller->add_return_data('user_fbid', $userfbId); 
 
             //if user is first time login with fb api
             //create an entry record in our user table
-            $user = $this->user_model->get_user_by_email($fb_user['email']);
+            $user_data = $this->user_model->get_user_by_email($fb_user['email']);
             
-	        if (!$user) {
+	        if (!$user_data) {
 	            //create an entry record for future activity 
 	             $data = array(
 	                $this->user_model->KEY_first_name => $fb_user['first_name'],
@@ -126,20 +126,20 @@ class User extends REST_Controller {
        			 $user_id = $this->user_model->add_user($data);
 
 		         if ($user_id < 0) {
-		                $this->core_controller->fail_response(6);
+		                $this->core_controller->fail_response(5);
 		         }	
 		
 			    $new_session_token = $this->get_valid_session_token_for_user($user_id);
-			    $this->core_controller->add_return_data('user_id',$user_id);
-			    
-
-
-	        }else{
-	        	$new_session_token = $this->get_valid_session_token_for_user($user[$this->user_model->KEY_user_id]);
-
+			    $user_data = $this->user_model->get_user_by_id($user_id);		
 	        }
-	        $this->core_controller->add_return_data('session_token', $new_session_token['session_token']); 
-	        $this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
+
+	        foreach ($this->hide_user_data($user_data) as $key => $value) {
+				$this->core_controller->add_return_data($key, $value);
+			}
+
+	        $new_session_token = $this->get_valid_session_token_for_user($user[$this->user_model->KEY_user_id]);
+	        $this->core_controller->add_return_data('session_token', $new_session_token['session_token'])
+							->add_return_data('expire_time', $new_session_token['expire_time']);
             $this->core_controller->successfully_processed();
             
         }

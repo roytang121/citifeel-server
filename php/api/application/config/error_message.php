@@ -10,11 +10,11 @@ $config['error'][2] = 'Standard validation error, you should use validation_erro
 
 // Login related error message
 $config['error'][3] = '使用者不存在！';
-$config['error'][4] = 'Wrong password';
+$config['error'][4] = '密碼不正確！';
 
 // FB login related error message
-$config['error'][5] = 'FaceBook login failed! Invalid access token';
-$config['error'][6] = 'Cannot create an user entry in our db from fb first time login';
+$config['error'][5] = 'Facebook 登入失敗！';
+
 
 // Register_related error message
 $config['error'][10] = 'User already exists';

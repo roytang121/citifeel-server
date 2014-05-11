@@ -85,8 +85,8 @@ class User extends REST_Controller {
 			$this->core_controller->add_return_data($key, $value);
 		}
 
-		$this->core_controller->add_return_data('session_token', $new_session_token['session_token'])
-							->add_return_data('expire_time', $new_session_token['expire_time']);
+		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
+							//->add_return_data('expire_time', $new_session_token['expire_time']);
 		
 		$this->core_controller->successfully_processed();
 	}
@@ -138,8 +138,8 @@ class User extends REST_Controller {
 			}
 
 	        $new_session_token = $this->get_valid_session_token_for_user($user_data[$this->user_model->KEY_user_id]);
-	        $this->core_controller->add_return_data('session_token', $new_session_token['session_token'])
-							->add_return_data('expire_time', $new_session_token['expire_time']);
+	        $this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
+							//->add_return_data('expire_time', $new_session_token['expire_time']);
             $this->core_controller->successfully_processed();
             
         }
@@ -154,9 +154,13 @@ class User extends REST_Controller {
         if (!is_null($result) && is_array($result) && count($result) > 0) {
             // has session token, check
             
-       		if (!$result['expired']) {
+            //Not implement session_expire::
+            //At the moment, we do not implement session expire time, it is supposed to be forever
+            //so we just ignore the expire check to accomplish it
+            //if we need it again in the future, just uncomment it again
+       		//if (!$result['expired']) {
 		    	return $this->session_model->get_session_by_id($id, $this->user_type);
-		    }
+		    //}
         }
         $this->session_model->generate_new_session_token($id, $this->user_type);
         return $this->session_model->get_session_by_id($id, $this->user_type);

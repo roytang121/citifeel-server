@@ -38,9 +38,22 @@ class User extends REST_Controller {
 	
 	// (DEBUG: not yet test)
 	// input: email, firstname, lastname, password
+	// rergister + login
 	public function register_post()
 	{
 		// (TODO) Validation
+		$this->load->library('form_validation');
+
+		$validation_config = array(
+			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|min_length[6]|md5'), 
+		);
+
+		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->request_fail_process(2, validation_errors());
+		}
+	
 	
         $this->load->model('user_model');
 

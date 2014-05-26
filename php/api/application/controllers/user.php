@@ -151,7 +151,7 @@ class User extends REST_Controller {
 		$this->load->model('user_model');
 		$current_user = $this->core_controller->get_current_user();
 
-		/*$this->session_model->expire_session($current_user[$this->user_model->KEY_did], $this->user_type);*/
+		$this->session_model->expire_session($current_user[$this->user_model->KEY_did], $this->user_type);/**/
 
 		$this->core_controller->successfully_processed();
 		

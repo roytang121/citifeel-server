@@ -36,25 +36,24 @@ class User extends REST_Controller {
 		$this->core_controller->successfully_processed();
 	}
 	
-	// (DEBUG: not yet test)
-	// input: email, firstname, lastname, password
-	// rergister + login
+	// INPUT: email, firstname, lastname, password
+	// register + login
 	public function register_post()
 	{
-		// (TODO) Validation
+		// Validation
 		$this->load->library('form_validation');
-
 		$validation_config = array(
-			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|min_length[6]|md5'), 
+			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
+			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
+			array('field' => 'firstname', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
+			array('field' => 'lastname', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
 		);
-
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
-
 		if ($this->form_validation->run() === FALSE) {
 			$this->core_controller->request_fail_process(2, validation_errors());
 		}
 	
-	
+		// Register
         $this->load->model('user_model');
 
         $existance = $this->user_model->check_if_user_exists($this->user_model->KEY_email,$this->input->post('email'));
@@ -72,14 +71,32 @@ class User extends REST_Controller {
         if ($user_id < 0) {
                 $this->core_controller->fail_response(11);
         }
+		
+		// Login
+		
+		
+		// Return JSON
         $this->core_controller->add_return_data('user_id',$user_id);
 		$this->core_controller->successfully_processed();
 	}
 
+	
+	// INPUT: email, password
 	public function login_post()
 	{
-		// (TODO) Validation
+		// Validation
+		$this->load->library('form_validation');
+		$validation_config = array(
+			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
+			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
+		);
+		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->request_fail_process(2, validation_errors());
+		}
 	
+	
+		// Login
         $this->load->model('user_model');
 		
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));

@@ -111,7 +111,7 @@ class CORE_Controller {
         $user_type = 0;
         if ($input_user_type == 'user') {
             
-            $user_type = 'user';
+            /*$user_type = 'user';
             $this->CI->load->model('user_model');
             $user_detail = $this->CI->user_model->get_user_by_email($input_email);
 
@@ -121,7 +121,7 @@ class CORE_Controller {
             }
 
             $this->current_user_obj = $user_detail;
-            $id = $user_detail['user_id'];
+            $id = $user_detail['user_id'];*/
 
         } else if ($input_user_type == 'admin') {
 
@@ -138,7 +138,7 @@ class CORE_Controller {
             $id = $user_detail['did'];*/
         }
         
-        $result = $this->CI->session_model->get_session_by_id($id, $user_type);
+        /*$result = $this->CI->session_model->get_session_by_id($id, $user_type);
 
         if (!is_null($result) && is_array($result) && count($result) > 0) {
             // has session token, check
@@ -161,7 +161,7 @@ class CORE_Controller {
             // $this->session = $this->CI->session_model->generate_new_session_token($current_user->get_user_id());
             // return true;
             return FALSE;
-        }
+        }*/
         
         
         

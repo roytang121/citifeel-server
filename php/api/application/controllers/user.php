@@ -36,8 +36,10 @@ class User extends REST_Controller {
 		$this->core_controller->successfully_processed();
 	}
 	
-	// INPUT: email, firstname, lastname, password
-	// Register + login
+	/**
+	*  INPUT: email, firstname, lastname, password
+	*  Register -> login
+	*/
 	public function register_post()
 	{
 		// Validation
@@ -96,7 +98,9 @@ class User extends REST_Controller {
 	}
 
 	
-	// INPUT: email, password
+	/**
+	*  INPUT: email, password
+	*/
 	public function login_post()
 	{
 		// Validation
@@ -136,6 +140,23 @@ class User extends REST_Controller {
 		$this->core_controller->successfully_processed();
 	}
 
+	/**
+	*  Logout
+	*  @todo not working because session not ready
+	*/
+	public function logout_get()
+	{
+		// expire current passenger session token
+		$this->load->model('session_model');
+		$this->load->model('driver_model');
+		$current_user = $this->core_controller->get_current_user();
+
+		$this->session_model->expire_session($current_user[$this->driver_model->KEY_did], $this->user_type);
+
+		$this->core_controller->successfully_processed();
+		
+	}
+	
 	public function fblogin_post()
 	{
 		$this->load->model('user_model');

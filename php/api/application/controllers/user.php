@@ -37,7 +37,7 @@ class User extends REST_Controller {
 	}
 	
 	// INPUT: email, firstname, lastname, password
-	// register + login
+	// Register + login
 	public function register_post()
 	{
 		// Validation
@@ -73,10 +73,25 @@ class User extends REST_Controller {
         }
 		
 		// Login
+		$this->load->model('user_model');
 		
+		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
+		if (count($user_data) == 0) {
+			// email does not exist
+			$this->core_controller->fail_response(3);
+		}
+		if ($user_data[$this->user_model->KEY_password] != $this->input->post('password')) {
+			// wrong password
+			$this->core_controller->fail_response(4);
+		}
 		
+		$new_session_token = $this->get_valid_session_token_for_user($user_data[$this->user_model->KEY_user_id]);
+
 		// Return JSON
-        $this->core_controller->add_return_data('user_id',$user_id);
+		foreach ($this->hide_user_data($user_data) as $key => $value) {
+			$this->core_controller->add_return_data($key, $value);
+		}
+		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->successfully_processed();
 	}
 

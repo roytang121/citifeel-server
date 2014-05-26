@@ -163,7 +163,7 @@ class CORE_Controller {
             return FALSE;
         }*/
         
-        
+        return true;
         
     }
     

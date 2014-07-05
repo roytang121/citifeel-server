@@ -150,13 +150,13 @@ class User extends REST_Controller {
 	public function logout_get()
 	{
 		// expire current passenger session token
-		$this->load->model('session_model');
+		/*$this->load->model('session_model');
 		$this->load->model('user_model');
 		$current_user = $this->core_controller->get_current_user();
 
-		$this->session_model->expire_session($current_user[$this->user_model->KEY_did], $this->user_type);/**/
+		$this->session_model->expire_session($current_user[$this->user_model->KEY_did], $this->user_type);
 
-		$this->core_controller->successfully_processed();
+		$this->core_controller->successfully_processed();*/
 		
 	}
 	

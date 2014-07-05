@@ -300,7 +300,7 @@ class User extends REST_Controller {
 		}
 
 		return $user_data_array;
-	}
+	} 
 
 	
 

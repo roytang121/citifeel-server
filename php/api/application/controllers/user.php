@@ -38,7 +38,7 @@ class User extends REST_Controller {
 	
 	/**
 	*  INPUT: email, firstname, lastname, password
-	*  Register -> login
+	*  DESC: Register + login together
 	*/
 	public function register_post()
 	{
@@ -133,15 +133,16 @@ class User extends REST_Controller {
 		foreach ($this->hide_user_data($user_data) as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
 		}
-
-		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
-							//->add_return_data('expire_time', $new_session_token['expire_time']);
 		
+		// Return JSON
+		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
+		$this->core_controller->->add_return_data('expire_time', $new_session_token['expire_time']);
+
 		$this->core_controller->successfully_processed();
 	}
 
 	/**
-	*  Logout
+	*  DESC: Logout
 	*  @todo not working because session not ready
 	*/
 	public function logout_get()
@@ -157,6 +158,10 @@ class User extends REST_Controller {
 		
 	}
 	
+	/**
+	*  DESC: FB lognlin
+	*  @todo not working because session not ready
+	*/
 	public function fblogin_post()
 	{
 		$this->load->model('user_model');
@@ -213,7 +218,62 @@ class User extends REST_Controller {
 		
 	}
 
-	/* helper function */
+	/**
+	*  DESC: get profile information for a specific user
+	*  INPUT: user_id
+	*/
+	public function get_profile(){
+		// Validation
+		$this->load->library('form_validation');
+		$validation_config = array(
+			array('field' => 'user_id', 'label' => 'user_id', 'rules' => 'trim|required|xss_clean')
+		);
+		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->request_fail_process(2, validation_errors());
+		}
+		
+		// Retrive user information
+		$this->load->model('user_model');
+		$user_data = $this->user_model->get_user_by_id($this->input->post('user_id'));
+		if (count($user_data) == 0) {
+			// user of the corresponding user id does not exist
+			$this->core_controller->fail_response(3);
+		}
+		
+		// Return JSON
+		foreach ($this->hide_user_data($user_data) as $key => $value){
+			$this->core_controller->add_return_data($key, $value);
+		}
+		$this->core_controller->successfully_processed();
+	}
+	
+	/**
+	*  DESC: edit profile for a specific user
+	*  INPUT: user_id, 
+	*  @todo not started working
+	*/
+	public function edit_profile(){
+		// Validation (TODO)
+		$this->load->library('form_validation');
+		$validation_config = array(
+			array('field' => 'user_id', 'label' => 'user_id', 'rules' => 'trim|required|xss_clean')
+		);
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->request_fail_process(2, validation_errors());
+		}
+		
+		// Edit user profile (TODO)
+		
+		
+		// Return JSON
+		$this->core_controller->successfully_processed();
+	}
+	
+	/****************
+	 * helper function 
+	 *****************/
+	 
 	private function get_valid_session_token_for_user($id) {
 		$this->load->model('session_model');
 		$result = $this->session_model->session_token_based_on_id($id, $this->user_type);

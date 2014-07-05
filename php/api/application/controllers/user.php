@@ -9,6 +9,8 @@ require_once (APPPATH. 'libraries/REST_Controller.php');
 
 class User extends REST_Controller {
 
+	var $user_type = '';
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('CORE_Controller');
@@ -21,7 +23,7 @@ class User extends REST_Controller {
 	
 	}
 
-	var $user_type = '';
+	
 
 	public function index()
 	{

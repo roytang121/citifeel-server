@@ -46,6 +46,7 @@ class User extends REST_Controller {
 	{
 		// Validation
 		$this->load->library('form_validation');
+		$this->load->helper(array('form', 'url'));
 		$validation_config = array(
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 

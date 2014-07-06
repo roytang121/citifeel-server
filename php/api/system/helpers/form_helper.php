@@ -899,7 +899,7 @@ if ( ! function_exists('validation_errors'))
 	{
 		if (FALSE === ($OBJ =& _get_validation_object()))
 		{
-			return '';
+			return 'haha';
 		}
 
 		return $OBJ->error_string($prefix, $suffix);

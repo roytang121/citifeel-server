@@ -25,7 +25,7 @@ $config['error'][11] = 'DB insert fails';
 // all other error messages
 $config['error'][100000001] = 'Not yet implemented.';
 $config['error'][100000002] = 'Database error.';
-$config['error'][100000003] = 'Invalid or missing parameters in POST / GET method.';
+$config['error'][100000003] = 'Invalid or missing parameters in POST / GET method.'; 
 
 /* End of file error_message.php */
 /* Location: ./application/config/error_message.php */

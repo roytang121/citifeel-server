@@ -157,7 +157,7 @@ class User extends REST_Controller {
 	
 	
 		// Login
-        $this->load->model('user_model');
+        /*$this->load->model('user_model');
 		
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
 		if (count($user_data) == 0) {
@@ -173,7 +173,7 @@ class User extends REST_Controller {
 
 		foreach ($this->hide_user_data($user_data) as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
-		}/**/
+		}*/
 		
 		// Return JSON
 		//$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);

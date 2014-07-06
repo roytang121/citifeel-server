@@ -136,7 +136,7 @@ class User extends REST_Controller {
 
 		foreach ($this->hide_user_data($user_data) as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
-		}*/
+		}
 		
 		// Return JSON
 

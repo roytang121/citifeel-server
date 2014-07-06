@@ -2,7 +2,7 @@
 
 
 /**
- * @author Ben Leung
+ * User
  */
 
 require_once (APPPATH. 'libraries/REST_Controller.php');
@@ -40,7 +40,7 @@ class User extends REST_Controller {
 	
 	/**
 	*  INPUT: email, firstname, lastname, password
-	*  Summary: Register + login together
+	*  DESC: Register + login together
 	*/
 	public function register_post()
 	{
@@ -49,8 +49,8 @@ class User extends REST_Controller {
 		$validation_config = array(
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
-			array('field' => 'firstname', 'label' => 'firstname', 'rules' => 'trim|required|xss_clean'), 
-			array('field' => 'lastname', 'label' => 'lastname', 'rules' => 'trim|required|xss_clean'), 
+			array('field' => 'firstname', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
+			array('field' => 'lastname', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
@@ -73,46 +73,8 @@ class User extends REST_Controller {
         );
         $user_id = $this->user_model->add_user($data);
         if ($user_id < 0) {
-                $this->core_controller->fail_response(11);
+			$this->core_controller->fail_response(11);
         }
-		
-		// upload profile pic
-        /*$config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
-		$config['allowed_types'] = '*';
-		//$config['max_size']	= '100000';
-		//$config['max_width']  = '10240';
-		//$config['max_height']  = '887680';
-
-		$this->load->library('upload', $config);
-		$url = null;
-		if ( ! $this->upload->do_upload('profile_pic'))
-		{
-			$error = array('error' => $this->upload->display_errors());
-			// var_dump($error);
-			//$this->load->view('upload_form'¡A$error);
-			 $this->core_controller->add_return_data('upload_image_error', $error);
-			 $this->core_controller->fail_response(5);
-		}
-		else
-		{
-			$file_data =  $this->upload->data();
-
-			//$this->load->view('upload_success'¡A$data);
-
-			// prepare to upload to S3 first
-			$this->load->helper('upload');
-			$this->load->config('amazon');
-			$accessKey = $this->config->item('amazonS3AccessKey');
-			$secretKey = $this->config->item('amazonS3SecretKey');
-
-			$url = upload_to_s3($file_data['full_path'], $file_data['file_name'], $accessKey, $secretKey);
-			if (!$url) {
-				$this->core_controller->add_return_data('upload_image_error', "Cannot upload to s3");
-				$this->core_controller->fail_response(5);
-			}
-
-			$this->core_controller->add_return_data('image_data', $file_data);
-		}*/
 		
 		// Login
 		$this->load->model('user_model');
@@ -134,7 +96,6 @@ class User extends REST_Controller {
 			$this->core_controller->add_return_data($key, $value);
 		}
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
-		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
 		$this->core_controller->successfully_processed();
 	}
 
@@ -145,7 +106,9 @@ class User extends REST_Controller {
 	public function login_post()
 	{
 		// Validation
+
 		$this->load->library('form_validation');
+
 		$validation_config = array(
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
@@ -176,6 +139,7 @@ class User extends REST_Controller {
 		}
 		
 		// Return JSON
+
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
 
@@ -193,9 +157,15 @@ class User extends REST_Controller {
 		$this->load->model('user_model');
 		$current_user = $this->core_controller->get_current_user();
 
-		$this->session_model->expire_session($current_user[$this->user_model->KEY_user_id], $this->user_type);
+
+		$this->session_model->expire_session($current_user[$this->user_model->KEY_did], $this->user_type);
 
 		$this->core_controller->successfully_processed();*/
+
+		//$this->session_model->expire_session($current_user[$this->user_model->KEY_user_id], $this->user_type);
+		//$this->core_controller->add_return_data('user_id', $current_user[$this->user_model->KEY_user_id]);*/ 
+		//$this->core_controller->successfully_processed();
+
 		
 	}
 	

@@ -114,9 +114,9 @@ class User extends REST_Controller {
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
-		/*if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->request_fail_process(2, validation_errors());
-		}*/
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->request_fail_process(2, validation_error());
+		}
 	
 	
 		// Login

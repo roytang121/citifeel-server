@@ -4,7 +4,6 @@
 // Please add your custom error here
 // format: $config['error'][__number__] = '__Your Error Message__';
 
-// Default error message
 $config['error'][0] = 'UNKNOWN ERROR.'; // do not use this except CORE_Controller
 $config['error'][1] = 'Failed credential check.';
 $config['error'][2] = 'Standard validation error, you should use validation_error() function to generate exact message back to the app.';
@@ -20,12 +19,6 @@ $config['error'][5] = 'Facebook 登入失敗！';
 // Register_related error message
 $config['error'][10] = 'User already exists';
 $config['error'][11] = 'DB insert fails';
-
-
-// all other error messages
-$config['error'][100000001] = 'Not yet implemented.';
-$config['error'][100000002] = 'Database error.';
-$config['error'][100000003] = 'Invalid or missing parameters in POST / GET method.'; 
 
 /* End of file error_message.php */
 /* Location: ./application/config/error_message.php */

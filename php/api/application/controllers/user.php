@@ -115,7 +115,8 @@ class User extends REST_Controller {
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->request_fail_process(2, validation_error());
+			//$this->core_controller->request_fail_process(2, validation_errors());
+			$this->core_controller->fail_response(1);
 		}
 	
 	

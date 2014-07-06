@@ -904,8 +904,9 @@ abstract class REST_Controller extends CI_Controller
 	public function validation_errors()
 	{
 		//$string = strip_tags($this->form_validation->error_string());
-		$string = 'haha';
-		return explode("\n", trim($string, "\n"));
+		//$string = 'haha';
+		//return explode("\n", trim($string, "\n"));
+		return array('a','b');
 	}
 
 	// SECURITY FUNCTIONS ---------------------------------------------------------

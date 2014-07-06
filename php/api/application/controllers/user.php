@@ -54,7 +54,9 @@ class User extends REST_Controller {
 		);
 		$this->form_validation->set_error_delimiters('<error>', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->fail_response(2, "Fuck you");
+			$x = validation_errors();
+			
+			$this->core_controller->fail_response(2, $x);
 		}
 	
 		// Register

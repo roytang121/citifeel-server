@@ -145,7 +145,7 @@ class User extends REST_Controller {
 	public function login_post()
 	{
 		// Validation
-		$this->load->library('form_validation');
+		/*$this->load->library('form_validation');
 		$validation_config = array(
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
@@ -157,7 +157,7 @@ class User extends REST_Controller {
 	
 	
 		// Login
-        /*$this->load->model('user_model');
+        $this->load->model('user_model');
 		
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
 		if (count($user_data) == 0) {

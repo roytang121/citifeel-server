@@ -73,7 +73,7 @@ class User extends REST_Controller {
         );
         $user_id = $this->user_model->add_user($data);
         if ($user_id < 0) {
-                $this->core_controller->fail_response(11);
+			$this->core_controller->fail_response(11);
         }
 		
 		// upload profile pic
@@ -189,13 +189,13 @@ class User extends REST_Controller {
 	public function logout_get()
 	{
 		// expire current passenger session token
-		$this->load->model('session_model');
+		/*$this->load->model('session_model');
 		$this->load->model('user_model');
 		$current_user = $this->core_controller->get_current_user();
 
 		//$this->session_model->expire_session($current_user[$this->user_model->KEY_user_id], $this->user_type);
-		$this->core_controller->add_return_data('user_id', $current_user[$this->user_model->KEY_user_id]);
-		$this->core_controller->successfully_processed();/**/ 
+		$this->core_controller->add_return_data('user_id', $current_user[$this->user_model->KEY_user_id]);*/ 
+		$this->core_controller->successfully_processed();
 		
 	}
 	

@@ -153,9 +153,9 @@ class User extends REST_Controller {
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
 		);
-		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+		$this->form_validation->set_error_delimiters('<error>', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->request_fail_process(2, validation_errors());
+			$this->core_controller->fail_response(2, validation_errors());
 		}
 	
 	

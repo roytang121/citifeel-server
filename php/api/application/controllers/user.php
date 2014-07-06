@@ -54,7 +54,7 @@ class User extends REST_Controller {
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->request_fail_process(2, validation_errors());
+			$this->core_controller->fail_response(2);
 		}
 	
 		// Register
@@ -115,8 +115,7 @@ class User extends REST_Controller {
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			//$this->core_controller->request_fail_process(2, validation_errors());
-			$this->core_controller->fail_response(1);
+			$this->core_controller->fail_response(2);
 		}
 	
 	
@@ -242,7 +241,7 @@ class User extends REST_Controller {
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->request_fail_process(2, validation_errors());
+			$this->core_controller->fail_response(2);
 		}
 		
 		// Retrive user information
@@ -272,7 +271,7 @@ class User extends REST_Controller {
 			array('field' => 'user_id', 'label' => 'user_id', 'rules' => 'trim|required|xss_clean')
 		);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->request_fail_process(2, validation_errors());
+			$this->core_controller->fail_response(2);
 		}
 		
 		// Edit user profile (TODO)

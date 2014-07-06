@@ -187,7 +187,8 @@ class User extends REST_Controller {
             // invalid access token, return with error
              $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
              $this->core_controller->add_return_data('login_url', $data['url']); 
-             $this->core_controller->fail_response(5);
+              $this->core_controller->successfully_processed();
+            // $this->core_controller->fail_response(5);
   
         } else {
             // Get user's data 

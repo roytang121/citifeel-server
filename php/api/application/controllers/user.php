@@ -52,9 +52,9 @@ class User extends REST_Controller {
 			array('field' => 'firstname', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
 			array('field' => 'lastname', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
 		);
-		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+		$this->form_validation->set_error_delimiters('<error>', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->fail_response(2);
+			$this->core_controller->fail_response(2, validation_errors());
 		}
 	
 		// Register
@@ -116,7 +116,6 @@ class User extends REST_Controller {
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
 			$this->core_controller->fail_response(2, validation_errors());
-			//$this->core_controller->fail_response(2);
 		}
 	
 	
@@ -243,7 +242,7 @@ class User extends REST_Controller {
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->fail_response(2);
+			$this->core_controller->fail_response(2, validation_errors());
 		}
 		
 		// Retrive user information
@@ -273,7 +272,7 @@ class User extends REST_Controller {
 			array('field' => 'user_id', 'label' => 'user_id', 'rules' => 'trim|required|xss_clean')
 		);
 		if ($this->form_validation->run() === FALSE) {
-			$this->core_controller->fail_response(2);
+			$this->core_controller->fail_response(2, validation_errors());
 		}
 		
 		// Edit user profile (TODO)

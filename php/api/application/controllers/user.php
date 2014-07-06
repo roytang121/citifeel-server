@@ -73,7 +73,7 @@ class User extends REST_Controller {
         );
         $user_id = $this->user_model->add_user($data);
         if ($user_id < 0) {
-                $this->core_controller->fail_response(11);
+			$this->core_controller->fail_response(11);
         }
 		
 		// Login
@@ -106,7 +106,9 @@ class User extends REST_Controller {
 	public function login_post()
 	{
 		// Validation
+
 		$this->load->library('form_validation');
+
 		$validation_config = array(
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
@@ -134,9 +136,10 @@ class User extends REST_Controller {
 
 		foreach ($this->hide_user_data($user_data) as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
-		}
+		}*/
 		
 		// Return JSON
+
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
 
@@ -154,9 +157,15 @@ class User extends REST_Controller {
 		$this->load->model('user_model');
 		$current_user = $this->core_controller->get_current_user();
 
+
 		$this->session_model->expire_session($current_user[$this->user_model->KEY_did], $this->user_type);
 
 		$this->core_controller->successfully_processed();*/
+
+		//$this->session_model->expire_session($current_user[$this->user_model->KEY_user_id], $this->user_type);
+		//$this->core_controller->add_return_data('user_id', $current_user[$this->user_model->KEY_user_id]);*/ 
+		//$this->core_controller->successfully_processed();
+
 		
 	}
 	

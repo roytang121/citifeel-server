@@ -195,7 +195,7 @@ class User extends REST_Controller {
 
 		//$this->session_model->expire_session($current_user[$this->user_model->KEY_user_id], $this->user_type);
 		$this->core_controller->add_return_data('user_id', $current_user[$this->user_model->KEY_user_id]);
-		$this->core_controller->successfully_processed();/**/
+		$this->core_controller->successfully_processed();/**/ 
 		
 	}
 	

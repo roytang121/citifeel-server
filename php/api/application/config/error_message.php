@@ -17,7 +17,7 @@ $config['error'][5] = 'Facebook 登入失敗！';
 
 
 // Register_related error message
-$config['error'][10] = 'User already exists';
+$config['error'][10] = '使用者已存在！';
 $config['error'][11] = 'DB insert fails';
 
 

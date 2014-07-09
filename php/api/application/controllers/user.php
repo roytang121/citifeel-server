@@ -49,8 +49,9 @@ class User extends REST_Controller {
 		$validation_config = array(
 			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
-			array('field' => 'firstname', 'label' => 'firstname', 'rules' => 'trim|required|xss_clean'), 
-			array('field' => 'lastname', 'label' => 'lastname', 'rules' => 'trim|required|xss_clean'), 
+			array('field' => 'username', 'label' => 'user name', 'rules' => 'trim|xss_clean'), 
+			//array('field' => 'firstname', 'label' => 'firstname', 'rules' => 'trim|required|xss_clean'), 
+			//array('field' => 'lastname', 'label' => 'lastname', 'rules' => 'trim|required|xss_clean'), 
 		);
 		$this->form_validation->set_error_delimiters('<error>', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {
@@ -66,8 +67,9 @@ class User extends REST_Controller {
         }
 
         $data = array(
-                $this->user_model->KEY_first_name => $this->input->post('firstname'),
-                $this->user_model->KEY_last_name => $this->input->post('lastname'),
+                //$this->user_model->KEY_first_name => $this->input->post('firstname'),
+               // $this->user_model->KEY_last_name => $this->input->post('lastname'),
+        		$this->user_model->KEY_user_name => $this->input->post('username'),
                 $this->user_model->KEY_password => $this->input->post('password'),
                 $this->user_model->KEY_email => $this->input->post('email')
         );
@@ -136,6 +138,8 @@ class User extends REST_Controller {
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
 		$this->core_controller->successfully_processed();
+
+		
 	}
 
 	

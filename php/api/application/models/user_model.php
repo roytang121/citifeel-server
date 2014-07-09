@@ -15,6 +15,7 @@ class User_model extends CI_Model {
 	var $KEY_email = 'email';
 	var $KEY_first_name = 'firstname';
 	var $KEY_last_name = 'lastname';
+	var $KEY_user_name = 'username';
 	var $KEY_profile_pic = 'profile_pic';
 	var $KEY_status = 'status';
 	var $KEY_password = 'password';

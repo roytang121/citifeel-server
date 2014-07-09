@@ -78,16 +78,16 @@ class User extends REST_Controller {
 			$this->core_controller->fail_response(11);
         }
 		
-		// upload profile pic
-        /*$config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
-		$config['allowed_types'] = '*';
+		/*// upload profile pic
+        $config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
+		//$config['allowed_types'] = 'JPEG|PNG';
 		//$config['max_size']	= '100000';
 		//$config['max_width']  = '10240';
 		//$config['max_height']  = '887680';
 
 		$this->load->library('upload', $config);
 		$url = null;
-		if ( ! $this->upload->do_upload('profile_pic'))
+		if ( ! $this->upload->do_upload('profilepic'))
 		{
 			$error = array('error' => $this->upload->display_errors());
 			// var_dump($error);
@@ -116,9 +116,8 @@ class User extends REST_Controller {
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}*/
 		
-		// Login
-		$this->load->model('user_model');
 		
+		// Login
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
 		if (count($user_data) == 0) {
 			// email does not exist
@@ -135,10 +134,11 @@ class User extends REST_Controller {
 		foreach ($this->hide_user_data($user_data) as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
 		}
+		
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
 		$this->core_controller->successfully_processed();
-
+		
 		
 	}
 

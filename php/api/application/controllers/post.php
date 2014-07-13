@@ -41,9 +41,9 @@ class Post extends REST_Controller {
 	*/
 	public function create_post()
 	{
-		//$this->load->model('user_model');
-		//$current_user = $this->core_controller->get_current_user();
-		//$current_user[$this->user_model->KEY_user_id]
+		$this->load->model('user_model');
+		$current_user = $this->core_controller->get_current_user();
+		$user_id = $current_user[$this->user_model->KEY_user_id];
 	
 		// Validation
 		$this->load->library('form_validation');
@@ -65,8 +65,8 @@ class Post extends REST_Controller {
 		$this->load->model('post_model');
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),
-			$this->post_model->KEY_user_id => $this->input->post('user_id'),
-			//$this->post_model->KEY_company_id => $this->input->post('company_id'),
+			$this->post_model->KEY_user_id => $user_id,
+			//$this->post_model->KEY_company_id => $this->input->post('company_id'),	//todo
 			$this->post_model->KEY_rating => $this->input->post('rating'),
 			$this->post_model->KEY_post_time => date('Y-m-d G:i:s')
         );

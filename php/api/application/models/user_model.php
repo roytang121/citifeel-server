@@ -28,6 +28,16 @@ class User_model extends CI_Model {
 			return -1;
 		}
 	}
+
+	function update_user($user_id,$data) {
+		$this->db->where($KEY_user_id,$user_id);
+		$this->db->update($this->Table_name_user, $data);	//(DEBUG: how it works)
+		if ($this->db->affected_rows() > 0) {
+			return $user_id;
+		} else {
+			return -1;
+		}
+	}
 	
 	function check_if_user_exists($key, $value) {
 		$number_of_result = $this->db->from($this->Table_name_user)

@@ -80,10 +80,16 @@ class User extends REST_Controller {
 		
 		// upload profile pic
         $config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/profile_pic';	//TODO: where is the path
-		$config['allowed_types'] = '*';
-		$config['max_size']	= '100000';
-		$config['max_width']  = '10240';
-		$config['max_height']  = '887680';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']	= '2000';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '1024';
+
+		//we only store one profile pic for each user
+		//so, when there is a new profile pic, the old one is overwrite 
+		//the file name is stored as user id 
+		$config['overwrite'] = TRUE;
+		$config['file_name']  = $user_id;
 		
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload('profilepic') )
@@ -99,6 +105,11 @@ class User extends REST_Controller {
 			$file_data =  $this->upload->data();
 
 			//$this->load->view('upload_success'¡A$data);
+
+			//update user db entry, profile_pic link
+			 $data = array(
+                $this->user_model->KEY_profile_pic => 'profile_pic/'.$file_data['file_name'],
+      		 );
 
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}

@@ -45,9 +45,9 @@ class Post extends REST_Controller {
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 
+			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 	//should be removed
 			array('field' => 'caption', 'label' => 'caption', 'rules' => 'trim|xss_clean'),
-			array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
+			//array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
 			array('field' => 'rating', 'label' => 'rating', 'rules' => 'trim|xss_clean|numeric'),
 			array('field' => 'price', 'label' => 'Price', 'rules' => 'trim|xss_clean'),
 			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),

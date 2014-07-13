@@ -61,13 +61,14 @@ class Post extends REST_Controller {
 		// Create Post
 		$this->load->model('post_model');
 		$data = array(
-			$this->user_model->KEY_caption = $this->input->post('caption'),
-			//$this->user_model->KEY_company_id = $this->input->post('company_id'),
-			$this->user_model->KEY_rating = $this->input->post('rating'),
-			$this->user_model->KEY_post_time = date('Y-m-d G:i:s'),
-			$this->user_model->KEY_price = $this->input->post('price'),
-			$this->user_model->KEY_url = $this->input->post('url'),
-			$this->user_model->KEY_region = $this->input->post('region')
+			$this->user_model->KEY_caption => $this->input->post('user_id'),
+			$this->user_model->KEY_user_id => $this->input->post('caption'),
+			//$this->user_model->KEY_company_id => $this->input->post('company_id'),
+			$this->user_model->KEY_rating => $this->input->post('rating'),
+			$this->user_model->KEY_post_time => date('Y-m-d G:i:s'),
+			$this->user_model->KEY_price => $this->input->post('price'),
+			$this->user_model->KEY_url => $this->input->post('url'),
+			$this->user_model->KEY_region => $this->input->post('region')
         );
 		
 		$this->user_model->create_post($data);

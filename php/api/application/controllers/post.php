@@ -72,9 +72,8 @@ class Post extends REST_Controller {
 		$inputs = array('company_id');
 		
 		foreach{$inputs as $input){
-			${$input} = $this->input->post('company_id');
-			if(!is_null($company_id))
-				$data[$this->post_model->KEY_company_id] = $company_id;
+			if(!is_null($this->input->post('company_id')))
+				$data[$this->post_model->KEY_company_id] = $this->input->post('company_id');
 		}
 		/*$url = $this->input->post('url');
 		if(!is_null($url))

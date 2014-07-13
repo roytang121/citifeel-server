@@ -14,7 +14,6 @@ class Post extends REST_Controller {
 		$this->load->library('CORE_Controller');
 		$this->load->helper(array('form', 'url'));
 		$this->core_controller->set_response_helper($this);
-	
 	}
 	
 	/**
@@ -38,10 +37,14 @@ class Post extends REST_Controller {
 
 	
 	/**
-	*  INPUT (7): user_id, caption, company_id, rating, price, url, region
+	*  INPUT: caption, company_id, rating, price, url (optional), (optional), region (optional)
 	*/
 	public function create_post()
 	{
+		//$this->load->model('user_model');
+		//$current_user = $this->core_controller->get_current_user();
+		//$current_user[$this->user_model->KEY_user_id]
+	
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
@@ -61,17 +64,25 @@ class Post extends REST_Controller {
 		// Create Post
 		$this->load->model('post_model');
 		$data = array(
-			$this->post_model->KEY_caption => $this->input->post('user_id'),
-			$this->post_model->KEY_user_id => $this->input->post('caption'),
+			$this->post_model->KEY_caption => $this->input->post('caption'),
+			$this->post_model->KEY_user_id => $this->input->post('user_id'),
 			//$this->post_model->KEY_company_id => $this->input->post('company_id'),
 			$this->post_model->KEY_rating => $this->input->post('rating'),
-			$this->post_model->KEY_post_time => date('Y-m-d G:i:s'),
-			$this->post_model->KEY_price => $this->input->post('price'),
-			$this->post_model->KEY_url => $this->input->post('url'),
-			$this->post_model->KEY_region => $this->input->post('region')
+			$this->post_model->KEY_post_time => date('Y-m-d G:i:s')
         );
+		/*
+		$url = $this->input->post('url');
+		if(!is_null($url))
+			$data[$this->post_model->KEY_url] = $url;
+			
+		$region = $this->input->post('region');
+		if(!is_null($region))
+			$data[$this->post_model->KEY_region] = $region;
 		
-		$current_user = $this->core_controller->get_current_user();
+		$price = $this->input->post('price');
+		if(!is_null($price))
+			$data[$this->post_model->KEY_price] = $price;
+		*/
 		
 		$this->post_model->create_post($data);
 		

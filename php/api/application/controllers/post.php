@@ -7,11 +7,12 @@
 
 require_once (APPPATH. 'libraries/REST_Controller.php');
 
-class User extends REST_Controller {
+class Post extends REST_Controller {
 
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('CORE_Controller');
+		$this->load->helper(array('form', 'url'));
 		$this->core_controller->set_response_helper($this);
 	
 	}
@@ -83,12 +84,24 @@ class User extends REST_Controller {
 	}
 	
 	/**
-	*  INPUT: tag, user_name, user_id, any other????????
+	*  INPUT: tag_id, user_id, business_user_id
     *  DESC: All inputs are optional, and-relationship, ignore if missing
 	*/
 	public function search_post()
 	{
-
+		// Validation
+		$this->load->library('form_validation');
+		$validation_config = array(
+			array('field' => 'tag_id', 'label' => 'Tag id', 'rules' => 'trim|xss_clean'), 
+			array('field' => 'user_id', 'label' => 'User id', 'rules' => 'trim|xss_clean')
+		);
+		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->fail_response(2, validation_errors());
+		}
+		
+		
+		
 		$this->core_controller->successfully_processed();
 	}
 	

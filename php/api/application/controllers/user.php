@@ -94,17 +94,11 @@ class User extends REST_Controller {
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload('profilepic') )
 		{
-			$error = array('error' => $this->upload->display_errors());
-		    var_dump($error);
-			//$this->load->view('upload_form'¡A$error);
-			 $this->core_controller->add_return_data('upload_image_error', $error);
-			 $this->core_controller->fail_response(5);
-		}
-		else
-		{
-			$file_data =  $this->upload->data();
+			 $this->core_controller->add_return_data('upload_image_error', $this->upload->display_errors());
+			 $this->core_controller->fail_response(12);
 
-			//$this->load->view('upload_success'¡A$data);
+		}else{
+			$file_data =  $this->upload->data();
 
 			//update user db entry, profile_pic link
 			 $data = array(

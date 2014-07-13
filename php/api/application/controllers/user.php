@@ -79,8 +79,8 @@ class User extends REST_Controller {
         }
 		
 		// upload profile pic
-      /*  $config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
-		//$config['allowed_types'] = 'JPEG|PNG';
+        $config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
+		$config['allowed_types'] = '*';
 		//$config['max_size']	= '100000';
 		//$config['max_width']  = '10240';
 		//$config['max_height']  = '887680';
@@ -102,7 +102,7 @@ class User extends REST_Controller {
 
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}
-		*/
+		
 		
 		// Login
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));

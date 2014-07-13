@@ -89,11 +89,11 @@ class Post extends REST_Controller {
 		$post_id = $this->post_model->create_post($data);
 		
 		// return post information
-		foreach ($data as $key => $value) {
+		/*foreach ($data as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
 		}
 		$this->core_controller->add_return_data("user_id", $current_user[$this->user_model->KEY_user_id]);
-		$this->core_controller->add_return_data("post_id", $post_model->KEY_post_id);
+		$this->core_controller->add_return_data("post_id", $post_model->KEY_post_id);*/
 		$this->core_controller->successfully_processed();
 	}
 	

@@ -48,9 +48,8 @@ class Post extends REST_Controller {
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 	//should be removed
 			array('field' => 'caption', 'label' => 'caption', 'rules' => 'trim|xss_clean'),
-			//array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
+			array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
 			array('field' => 'rating', 'label' => 'rating', 'rules' => 'trim|xss_clean|numeric'),
 			array('field' => 'price', 'label' => 'Price', 'rules' => 'trim|xss_clean'),
 			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),
@@ -66,11 +65,14 @@ class Post extends REST_Controller {
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),
 			$this->post_model->KEY_user_id => $user_id,
-			//$this->post_model->KEY_company_id => $this->input->post('company_id'),	//todo
 			$this->post_model->KEY_rating => $this->input->post('rating'),
 			$this->post_model->KEY_post_time => date('Y-m-d G:i:s')
         );
 		/*
+		$company_id = $this->input->post('company_id');
+		if(!is_null($company_id))
+			$data[$this->post_model->KEY_company_id] = $company_id;
+		
 		$url = $this->input->post('url');
 		if(!is_null($url))
 			$data[$this->post_model->KEY_url] = $url;
@@ -84,10 +86,14 @@ class Post extends REST_Controller {
 			$data[$this->post_model->KEY_price] = $price;
 		*/
 		
-		$this->post_model->create_post($data);
+		$post_id = $this->post_model->create_post($data);
 		
 		// return post information
-		
+		foreach ($data as $key => $value) {
+			$this->core_controller->add_return_data($key, $value);
+		}
+		$this->core_controller->add_return_data("user_id", $current_user[$this->user_model->KEY_user_id]);
+		$this->core_controller->add_return_data("post_id", $post_model->KEY_post_id);
 		$this->core_controller->successfully_processed();
 	}
 	

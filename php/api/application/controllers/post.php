@@ -38,16 +38,16 @@ class Post extends REST_Controller {
 
 	
 	/**
-	*  INPUT: user_id, caption, company_id, rating, price, url, region
+	*  INPUT (7): user_id, caption, company_id, rating, price, url, region
 	*/
 	public function create_post()
 	{
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 
+			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 	//should be removed
 			array('field' => 'caption', 'label' => 'caption', 'rules' => 'trim|xss_clean'),
-			array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
+			//array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
 			array('field' => 'rating', 'label' => 'rating', 'rules' => 'trim|xss_clean|numeric'),
 			array('field' => 'price', 'label' => 'Price', 'rules' => 'trim|xss_clean'),
 			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),
@@ -61,15 +61,14 @@ class Post extends REST_Controller {
 		// Create Post
 		$this->load->model('post_model');
 		$data = array(
-                $this->user_model->KEY_post_id = $this->input->post('post_id'),
-				$this->user_model->KEY_user_id = $this->input->post('user_id'),
-				$this->user_model->KEY_caption = $this->input->post('caption'),
-				$this->user_model->KEY_company_id = $this->input->post('company_id'),
-				$this->user_model->KEY_rating = $this->input->post('rating'),
-				$this->user_model->KEY_post_time = $this->input->post('post_time'),
-				$this->user_model->KEY_price = $this->input->post('price'),
-				$this->user_model->KEY_url = $this->input->post('url'),
-				$this->user_model->KEY_region = $this->input->post('region')
+			$this->user_model->KEY_user_id = $this->input->post('user_id'),
+			$this->user_model->KEY_caption = $this->input->post('caption'),
+			$this->user_model->KEY_company_id = $this->input->post('company_id'),
+			$this->user_model->KEY_rating = $this->input->post('rating'),
+			$this->user_model->KEY_post_time = date('Y-m-d G:i:s'),
+			$this->user_model->KEY_price = $this->input->post('price'),
+			$this->user_model->KEY_url = $this->input->post('url'),
+			$this->user_model->KEY_region = $this->input->post('region')
         );
 		
 		$this->user_model->create_post($data);

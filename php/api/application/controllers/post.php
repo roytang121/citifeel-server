@@ -38,19 +38,24 @@ class Post extends REST_Controller {
 
 	
 	/**
-	*  INPUT: 
+	*  INPUT: user_id, caption, company_id, rating, price, url, region
 	*/
 	public function create_post()
 	{
-		/*$this->load->library('form_validation');
+		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'oid', 'label' => 'order id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 
-			array('field' => 'actual_price', 'label' => 'actual price', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'),
+			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 
+			array('field' => 'caption', 'label' => 'caption', 'rules' => 'trim|xss_clean'),
+			array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
+			array('field' => 'rating', 'label' => 'rating', 'rules' => 'trim|xss_clean|numeric'),
+			array('field' => 'price', 'label' => 'Price', 'rules' => 'trim|xss_clean'),
+			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),
+			array('field' => 'region', 'label' => 'Region', 'rules' => 'trim|xss_clean'),
 			);
 
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 
-		if ($this->form_validation->run() === FALSE) {
+		/*if ($this->form_validation->run() === FALSE) {
 			$this->core_controller->fail_response(2, validation_errors());
 		}*/
 		$this->core_controller->successfully_processed();

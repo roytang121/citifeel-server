@@ -111,17 +111,17 @@ class CORE_Controller {
         $user_type = 0;
         if ($input_user_type == 'user') {
             
-            /*$user_type = 'user';
+            $user_type = 'user';
             $this->CI->load->model('user_model');
             $user_detail = $this->CI->user_model->get_user_by_email($input_email);
 
-            // check if passenger exists
+            // check if user exists
             if (count($user_detail) == 0) {
                 return FALSE;
             }
 
             $this->current_user_obj = $user_detail;
-            $id = $user_detail['user_id'];*/
+            /*$id = $user_detail['user_id'];*/
 
         } else if ($input_user_type == 'admin') {
 

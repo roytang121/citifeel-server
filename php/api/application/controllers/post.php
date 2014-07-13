@@ -68,12 +68,12 @@ class Post extends REST_Controller {
 			$this->post_model->KEY_rating => $this->input->post('rating'),
 			$this->post_model->KEY_post_time => date('Y-m-d G:i:s')
         );
-		/*
+		
 		$company_id = $this->input->post('company_id');
 		if(!is_null($company_id))
 			$data[$this->post_model->KEY_company_id] = $company_id;
 		
-		$url = $this->input->post('url');
+		/*$url = $this->input->post('url');
 		if(!is_null($url))
 			$data[$this->post_model->KEY_url] = $url;
 			

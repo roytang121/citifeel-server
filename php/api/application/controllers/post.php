@@ -68,12 +68,13 @@ class Post extends REST_Controller {
 			$this->post_model->KEY_post_time => date('Y-m-d G:i:s')
         );
 		
-		/*$form_inputs = array('company_id','url','region','price','rating');
+		
+		$form_inputs = array('company_id');	//,'url','region','price','rating'
 		
 		foreach($form_inputs as $form_input){
 			if(!empty($this->input->post($form_input)))
 				$data[$this->post_model->{"KEY_" . $form_input}] = $this->input->post($form_input);
-		}*/
+		}
 		
 		$post_id = $this->post_model->create_post($data);
 		

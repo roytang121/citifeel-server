@@ -110,7 +110,9 @@ class User extends REST_Controller {
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}
 		
-		
+		//we dun need that, we will seperate reg and login
+		//the login function will be called by app immediately after the reg successful
+		/*
 		// Login
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
 		if (count($user_data) == 0) {
@@ -131,6 +133,8 @@ class User extends REST_Controller {
 
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
+		*/
+
 		$this->core_controller->successfully_processed();
 		
 		

@@ -80,7 +80,7 @@ class User extends REST_Controller {
 		
 		// upload profile pic
         $config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/profile_pic';	//TODO: where is the path
-		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['allowed_types'] = 'png|jpg|jpeg';
 		$config['max_size']	= '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '1024';
@@ -94,17 +94,12 @@ class User extends REST_Controller {
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload('profilepic') )
 		{
-			$error = array('error' => $this->upload->display_errors());
-		    var_dump($error);
-			//$this->load->view('upload_form'¡A$error);
-			 $this->core_controller->add_return_data('upload_image_error', $error);
-			 $this->core_controller->fail_response(5);
-		}
-		else
-		{
-			$file_data =  $this->upload->data();
+			var_dump($this->upload->display_errors());
+			 $this->core_controller->add_return_data('upload_image_error', $this->upload->display_errors());
+			 $this->core_controller->fail_response(12);
 
-			//$this->load->view('upload_success'¡A$data);
+		}else{
+			$file_data =  $this->upload->data();
 
 			//update user db entry, profile_pic link
 			 $data = array(
@@ -115,7 +110,9 @@ class User extends REST_Controller {
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}
 		
-		
+		//we dun need that, we will seperate reg and login
+		//the login function will be called by app immediately after the reg successful
+		/*
 		// Login
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));
 		if (count($user_data) == 0) {
@@ -136,6 +133,8 @@ class User extends REST_Controller {
 
 		$this->core_controller->add_return_data('session_token', $new_session_token['session_token']);
 		$this->core_controller->add_return_data('expire_time', $new_session_token['expire_time']);
+		*/
+
 		$this->core_controller->successfully_processed();
 		
 		

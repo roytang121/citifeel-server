@@ -2,3 +2,6 @@
 # This is a simple post deploy hook executed after your application 
 # is deployed and started.  This script gets executed directly, so 
 # it could be python, php, ruby, etc.
+
+cd app-root/repo/php
+ln -s ../../data/uploads/profile_pic profile_pic

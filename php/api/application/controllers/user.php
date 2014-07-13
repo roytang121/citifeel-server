@@ -86,7 +86,7 @@ class User extends REST_Controller {
 		$config['max_height']  = '887680';
 		
 		$this->load->library('upload', $config);
-		/*if ( ! $this->upload->do_upload() )
+		if ( ! $this->upload->do_upload('profilepic') )
 		{
 			$error = array('error' => $this->upload->display_errors());
 		    var_dump($error);
@@ -101,7 +101,7 @@ class User extends REST_Controller {
 			//$this->load->view('upload_success'¡A$data);
 
 			$this->core_controller->add_return_data('image_data', $file_data);
-		}*/
+		}
 		
 		
 		// Login

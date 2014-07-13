@@ -84,7 +84,7 @@ class User extends REST_Controller {
 		//$config['max_size']	= '100000';
 		//$config['max_width']  = '10240';
 		//$config['max_height']  = '887680';
-		var_dump($config['upload_path']);
+		//var_dump($config['upload_path']);
 		$this->load->library('upload', $config);
 		/*if ( ! $this->upload->do_upload() )
 		{

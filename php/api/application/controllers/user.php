@@ -81,27 +81,11 @@ class User extends REST_Controller {
 		// upload profile pic
         $config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/profile_pic';	//TODO: where is the path
 		$config['allowed_types'] = '*';
-		//$config['max_size']	= '100000';
-		//$config['max_width']  = '10240';
-		//$config['max_height']  = '887680';
-		//var_dump($config['upload_path']);
+		$config['max_size']	= '100000';
+		$config['max_width']  = '10240';
+		$config['max_height']  = '887680';
+		
 		$this->load->library('upload', $config);
-		/*if ( ! $this->upload->do_upload() )
-		{
-			$error = array('error' => $this->upload->display_errors());
-		    var_dump($error);
-			//$this->load->view('upload_form'¡A$error);
-			 $this->core_controller->add_return_data('upload_image_error', $error);
-			 $this->core_controller->fail_response(5);
-		}
-		else
-		{
-			$file_data =  $this->upload->data();
-
-			//$this->load->view('upload_success'¡A$data);
-
-			$this->core_controller->add_return_data('image_data', $file_data);
-		}*/
 		
 		
 		// Login

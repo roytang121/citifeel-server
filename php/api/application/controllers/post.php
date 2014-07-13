@@ -12,6 +12,7 @@ class Post extends REST_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('CORE_Controller');
+		$this->load->helper(array('form', 'url'));
 		$this->core_controller->set_response_helper($this);
 	
 	}

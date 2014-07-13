@@ -14,7 +14,6 @@ class Post extends REST_Controller {
 		$this->load->library('CORE_Controller');
 		$this->load->helper(array('form', 'url'));
 		$this->core_controller->set_response_helper($this);
-	
 	}
 	
 	/**
@@ -42,6 +41,10 @@ class Post extends REST_Controller {
 	*/
 	public function create_post()
 	{
+		//$this->load->model('user_model');
+		//$current_user = $this->core_controller->get_current_user();
+		//$current_user[$this->user_model->KEY_user_id]
+	
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(

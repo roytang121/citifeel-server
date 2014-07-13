@@ -96,7 +96,7 @@ class User extends REST_Controller {
 		{
 			$error = array('error' => $this->upload->display_errors());
 		    var_dump($error);
-			//$this->load->view('upload_form'¡A$error);
+			//$this->load->view('upload_form'Â¡A$error);
 			 $this->core_controller->add_return_data('upload_image_error', $error);
 			 $this->core_controller->fail_response(5);
 		}
@@ -104,12 +104,13 @@ class User extends REST_Controller {
 		{
 			$file_data =  $this->upload->data();
 
-			//$this->load->view('upload_success'¡A$data);
+			//$this->load->view('upload_success'Â¡A$data);
 
 			//update user db entry, profile_pic link
 			 $data = array(
                 $this->user_model->KEY_profile_pic => 'profile_pic/'.$file_data['file_name'],
       		 );
+      		 $this->user_model->update_user($user_id,$data);
 
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}

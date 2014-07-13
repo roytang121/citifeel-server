@@ -42,6 +42,7 @@ class Post extends REST_Controller {
 	*/
 	public function create_post()
 	{
+		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
 			array('field' => 'user_id', 'label' => 'user id', 'rules' => 'trim|required|xss_clean|min_length[1]|numeric'), 
@@ -52,12 +53,29 @@ class Post extends REST_Controller {
 			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),
 			array('field' => 'region', 'label' => 'Region', 'rules' => 'trim|xss_clean'),
 			);
-
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
-
-		/*if ($this->form_validation->run() === FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$this->core_controller->fail_response(2, validation_errors());
-		}*/
+		}
+		
+		// Create Post
+		$this->load->model('post_model');
+		$data = array(
+                $this->user_model->KEY_post_id = $this->input->post('post_id'),
+				$this->user_model->KEY_user_id = $this->input->post('user_id'),
+				$this->user_model->KEY_caption = $this->input->post('caption'),
+				$this->user_model->KEY_company_id = $this->input->post('company_id'),
+				$this->user_model->KEY_rating = $this->input->post('rating'),
+				$this->user_model->KEY_post_time = $this->input->post('post_time'),
+				$this->user_model->KEY_price = $this->input->post('price'),
+				$this->user_model->KEY_url = $this->input->post('url'),
+				$this->user_model->KEY_region = $this->input->post('region')
+        );
+		
+		$this->user_model->create_post($data);
+		
+		// return post information
+		
 		$this->core_controller->successfully_processed();
 	}
 	

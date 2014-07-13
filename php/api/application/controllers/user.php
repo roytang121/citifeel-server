@@ -86,11 +86,10 @@ class User extends REST_Controller {
 		//$config['max_height']  = '887680';
 
 		$this->load->library('upload', $config);
-		$url = null;
 		if ( ! $this->upload->do_upload('profilepic'))
 		{
 			$error = array('error' => $this->upload->display_errors());
-			// var_dump($error);
+		    var_dump($error);
 			//$this->load->view('upload_form'¡A$error);
 			 $this->core_controller->add_return_data('upload_image_error', $error);
 			 $this->core_controller->fail_response(5);

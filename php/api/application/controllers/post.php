@@ -62,6 +62,7 @@ class Post extends REST_Controller {
 		
 		// Create Post
 		$this->load->model('post_model');
+		date_default_timezone_set('Asia/Hong_Kong');
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),
 			$this->post_model->KEY_user_id => $user_id,
@@ -72,7 +73,7 @@ class Post extends REST_Controller {
 		$form_inputs = array('company_id');	//,'url','region','price','rating'
 		
 		foreach($form_inputs as $form_input){
-			if( !is_null($this->input->post($form_input)) )
+			if( $this->input->post($form_input) )
 				$data[$this->post_model->{"KEY_" . $form_input}] = $this->input->post($form_input);
 		}
 		

@@ -94,6 +94,7 @@ class User extends REST_Controller {
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload('profilepic') )
 		{
+			var_dump($this->upload->display_errors());
 			 $this->core_controller->add_return_data('upload_image_error', $this->upload->display_errors());
 			 $this->core_controller->fail_response(12);
 

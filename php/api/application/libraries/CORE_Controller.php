@@ -102,9 +102,9 @@ class CORE_Controller {
         $input_session_token = $this->CI->input->get_request_header('X-citifeel-session-token', TRUE);
         $input_user_type = $this->CI->input->get_request_header('X-citifeel-user-type', TRUE);
 
-        /*if ($input_email == FALSE || $input_user_type == FALSE || $input_session_token == FALSE) {
+        if ($input_email == FALSE || $input_user_type == FALSE || $input_session_token == FALSE) {
             return FALSE;
-        }*/
+        }
 
         
         $this->CI->load->model('session_model');

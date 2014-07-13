@@ -79,7 +79,7 @@ class User extends REST_Controller {
         }
 		
 		// upload profile pic
-        $config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
+      /*  $config['upload_path'] = './uploads/profile_pic';	//TODO: where is the path
 		//$config['allowed_types'] = 'JPEG|PNG';
 		//$config['max_size']	= '100000';
 		//$config['max_width']  = '10240';
@@ -94,7 +94,7 @@ class User extends REST_Controller {
 			 $this->core_controller->add_return_data('upload_image_error', $error);
 			 $this->core_controller->fail_response(5);
 		}
-		/*else
+		else
 		{
 			$file_data =  $this->upload->data();
 

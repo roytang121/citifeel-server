@@ -65,28 +65,15 @@ class Post extends REST_Controller {
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),
 			$this->post_model->KEY_user_id => $user_id,
-			$this->post_model->KEY_rating => $this->input->post('rating'),
 			$this->post_model->KEY_post_time => date('Y-m-d G:i:s')
         );
 		
-		$form_inputs = array('company_id');
+		$form_inputs = array('company_id','url','region','price','rating');
 		
 		foreach($form_inputs as $form_input){
 			if(!is_null($this->input->post($form_input)))
 				$data[$this->post_model->{"KEY_" . $form_input}] = $this->input->post($form_input);
 		}
-		/*$url = $this->input->post('url');
-		if(!is_null($url))
-			$data[$this->post_model->KEY_url] = $url;
-			
-		$region = $this->input->post('region');
-		if(!is_null($region))
-			$data[$this->post_model->KEY_region] = $region;
-		
-		$price = $this->input->post('price');
-		if(!is_null($price))
-			$data[$this->post_model->KEY_price] = $price;
-		*/
 		
 		$post_id = $this->post_model->create_post($data);
 		

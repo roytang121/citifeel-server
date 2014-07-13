@@ -71,7 +71,7 @@ class Post extends REST_Controller {
 		$form_inputs = array('company_id','url','region','price','rating');
 		
 		foreach($form_inputs as $form_input){
-			if(!is_null($this->input->post($form_input)))
+			if(isset($this->input->post($form_input)))
 				$data[$this->post_model->{"KEY_" . $form_input}] = $this->input->post($form_input);
 		}
 		

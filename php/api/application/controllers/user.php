@@ -94,7 +94,7 @@ class User extends REST_Controller {
 			 $this->core_controller->add_return_data('upload_image_error', $error);
 			 $this->core_controller->fail_response(5);
 		}
-		else
+		/*else
 		{
 			$file_data =  $this->upload->data();
 
@@ -102,7 +102,7 @@ class User extends REST_Controller {
 
 			$this->core_controller->add_return_data('image_data', $file_data);
 		}
-		
+		*/
 		
 		// Login
 		$user_data = $this->user_model->get_user_by_email($this->input->post('email'));

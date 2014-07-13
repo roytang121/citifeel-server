@@ -30,7 +30,7 @@ class User_model extends CI_Model {
 	}
 
 	function update_user($user_id,$data) {
-		$this->db->where($KEY_user_id,$user_id);
+		$this->db->where($this->KEY_user_id,$user_id);
 		$this->db->update($this->Table_name_user, $data);	//(DEBUG: how it works)
 		if ($this->db->affected_rows() > 0) {
 			return $user_id;

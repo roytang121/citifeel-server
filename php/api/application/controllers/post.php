@@ -73,7 +73,7 @@ class Post extends REST_Controller {
 		
 		foreach($form_inputs as $form_input){
 			if( !is_null($this->input->post($form_input)) )
-				$data[$this->post_model->{"KEY_company_id"}] = $this->input->post($form_input);
+				$data[$this->post_model->{"KEY_" . $form_input}] = $this->input->post($form_input);
 		}
 		
 		$post_id = $this->post_model->create_post($data);

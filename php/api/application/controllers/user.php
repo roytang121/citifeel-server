@@ -210,7 +210,7 @@ class User extends REST_Controller {
 	
 	/**
 	*  DESC: FB lognlin
-	*  @todo not working because session not ready
+	*  
 	*/
 	public function fblogin_post()
 	{

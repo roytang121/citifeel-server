@@ -14,6 +14,7 @@ class Post extends REST_Controller {
 		$this->load->library('CORE_Controller');
 		$this->load->helper(array('form', 'url'));
 		$this->core_controller->set_response_helper($this);
+		date_default_timezone_set('Asia/Hong_Kong');
 	}
 	
 	/**
@@ -62,7 +63,6 @@ class Post extends REST_Controller {
 		
 		// Create Post
 		$this->load->model('post_model');
-		date_default_timezone_set('Asia/Hong_Kong');
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),
 			$this->post_model->KEY_user_id => $user_id,

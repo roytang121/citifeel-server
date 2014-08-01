@@ -18,10 +18,10 @@ class Post extends REST_Controller {
 	}
 	
 	/**
-	*  INPUT: email, firstname, lastname, password
+	*  INPUT: timestamp, null value to retrieve the latest post
 	*  DESC: Can be very complex
 	*/
-	public function newsfeed_post()
+	public function newsfeed_get()
 	{
 		/*$current_user = $this->core_controller->get_current_user();
 		
@@ -33,6 +33,13 @@ class Post extends REST_Controller {
 			$this->core_controller->add_return_data($i, $post);
 			$i++;
 		}*/
+
+		$timestamp = $this->input->get("timestamp");
+		if($timestamp) intval($timestamp);
+
+		$posts = $this->post_model->getnewsfeed_posts($timestamp);
+
+		$this->core_controller->add_return_data('posts', $posts);
 		$this->core_controller->successfully_processed();
 	}
 
@@ -60,9 +67,58 @@ class Post extends REST_Controller {
 		if ($this->form_validation->run() === FALSE) {
 			$this->core_controller->fail_response(2, validation_errors());
 		}
+
+		$config = array();
+		$config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic'
+		$config['allowed_types'] = 'png|jpg|jpeg';
+		$config['max_size']	= '16384';
+		$config['encrypt_name'] = TRUE;
+		$config['overwrite'] = FALSE;
+
+		$this->load->library('upload', $config);
 		
+		//batch upload post pic
+		$upload_success = TRUE;
+		$file = $_FILES;
+		$upload_data = array();
+		$count = count($_FILES['post_pic']['name']);
+		for($i = 0; $i < $count; $i++) {
+	        $_FILES['post_pic']['name']= $files['post_pic']['name'][$i];
+	        $_FILES['post_pic']['type']= $files['post_pic']['type'][$i];
+	        $_FILES['post_pic']['tmp_name']= $files['post_pic']['tmp_name'][$i];
+	        $_FILES['post_pic']['error']= $files['post_pic']['error'][$i];
+	        $_FILES['post_pic']['size']= $files['post_pic']['size'][$i]; 
+	        if($upload_success &= $this->upload->do_upload()) {
+	        	$upload_data[] = $this->upload->data();
+	        	$upload_success &= $upload_data[count($upload_data) - 1]["is_image"] == "1"
+	        }
+	        if(!$upload_success) break;
+		}
+
+		if($upload_success === FALSE) {
+			//remove all the upload post pic if upload fail
+			foreach($upload_data as $data)
+				if(file_exists($_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic/' . $data['orig_name']))
+					unlink($_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic/' . $data['orig_name']);
+			$this->core_controller->fail_response(2, "Upload Images Failed!");
+		}
+
+
 		// Create Post
 		$this->load->model('post_model');
+
+		$result = $this->post_model->create_post(
+			$user_id,
+			$this->input->post("caption"),
+			$this->input->post("company_id"),
+			$this->input->post("rating"),
+			$this->input->post("price"),
+			$this->input->post("url"),
+			$this->input->post("region"),
+			$upload_data
+		);
+
+		/*
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),
 			$this->post_model->KEY_user_id => $user_id,
@@ -78,14 +134,19 @@ class Post extends REST_Controller {
 		}
 		
 		$post_id = $this->post_model->create_post($data);
-		
+		*/
+
 		// return post information
 		/*foreach ($data as $key => $value) {
 			$this->core_controller->add_return_data($key, $value);
 		}
 		$this->core_controller->add_return_data("user_id", $current_user[$this->user_model->KEY_user_id]);*/
-		$this->core_controller->add_return_data("post_id", $post_id);
-		$this->core_controller->successfully_processed();
+		//$this->core_controller->add_return_data("post_id", $post_id);
+		
+		if($result)
+			$this->core_controller->successfully_processed();
+		else
+			$this->core_controller->fail_response(2);
 	}
 	
 	/**
@@ -103,6 +164,7 @@ class Post extends REST_Controller {
 	public function detail_post()
 	{
 
+
 		$this->core_controller->successfully_processed();
 	}
 	
@@ -111,6 +173,7 @@ class Post extends REST_Controller {
 	*/
 	public function edit_post()
 	{
+
 
 		$this->core_controller->successfully_processed();
 	}

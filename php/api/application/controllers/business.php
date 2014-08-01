@@ -13,7 +13,7 @@ class Business extends REST_Controller {
 	}
 
 	public function test_get() {
-		$result = $this->business_model->distribution_of_posts_made_by_district(mktime(0, 0, 0, 6, 4, 2014));
+		$result = $this->business_model->company_ratings(10);
 		$this->core_controller->add_return_data("result", $result);
 		$this->core_controller->successfully_processed();
 	}

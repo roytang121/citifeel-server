@@ -28,10 +28,10 @@ class Post_model extends CI_Model {
 		}
 	}*/
 
-	public function create_post($user_id, $caption, $company_id, $rating, $price, $url, $region, $upload_data) {
+	public function create_post($user_id, $caption, $company, $rating, $price, $url, $region, $upload_data) {
 		$this->db->trans_start();
 
-		$sql = "INSERT INTO post(user_id, caption, rating, post_time, url, company_id, price, region) VALUES(?, ?, ?, NOW(), ?, ?, ?, ?)";
+		$sql = "INSERT INTO post(user_id, caption, rating, post_time, url, company, price, region) VALUES(?, ?, ?, NOW(), ?, ?, ?, ?)";
 		$query = $this->db->query($sql, array($user_id, $caption, $rating, $url, $company_id, $price, $region));
 		if(!$query || !$this->db->affected_rows()) {
 			return false;

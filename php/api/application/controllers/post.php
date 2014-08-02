@@ -57,7 +57,7 @@ class Post extends REST_Controller {
 		$this->load->library('form_validation');
 		$validation_config = array(
 			array('field' => 'caption', 'label' => 'caption', 'rules' => 'trim|xss_clean'),
-			array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
+			array('field' => 'company', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
 			array('field' => 'rating', 'label' => 'rating', 'rules' => 'trim|xss_clean|numeric'),
 			array('field' => 'price', 'label' => 'Price', 'rules' => 'trim|xss_clean'),
 			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),
@@ -110,7 +110,7 @@ class Post extends REST_Controller {
 		$result = $this->post_model->create_post(
 			$user_id,
 			$this->input->post("caption"),
-			$this->input->post("company_id"),
+			$this->input->post("company"),
 			$this->input->post("rating"),
 			$this->input->post("price"),
 			$this->input->post("url"),

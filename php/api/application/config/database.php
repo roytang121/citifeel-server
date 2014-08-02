@@ -48,10 +48,26 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
+$db['benng']['hostname'] = 'localhost';
+$db['benng']['username'] = 'adminEppJ4JK';
+$db['benng']['password'] = 'eBq_FmWS3vCJ';
+$db['benng']['database'] = 'citifeel';
+$db['benng']['dbdriver'] = 'mysql';
+$db['benng']['dbprefix'] = '';
+$db['benng']['pconnect'] = TRUE;
+$db['benng']['db_debug'] = TRUE;
+$db['benng']['cache_on'] = FALSE;
+$db['benng']['cachedir'] = '';
+$db['benng']['char_set'] = 'utf8';
+$db['benng']['dbcollat'] = 'utf8_general_ci';
+$db['benng']['swap_pre'] = '';
+$db['benng']['autoinit'] = TRUE;
+$db['benng']['stricton'] = FALSE;
+
+$db['default']['hostname'] = '535b17a45973ca40100001b2-citifeel.rhcloud.com:56436';
 $db['default']['username'] = 'adminEppJ4JK';
 $db['default']['password'] = 'eBq_FmWS3vCJ';
-$db['default']['database'] = 'citifeel';
+$db['default']['database'] = 'server';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

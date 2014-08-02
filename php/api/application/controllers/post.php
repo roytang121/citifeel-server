@@ -72,7 +72,7 @@ class Post extends REST_Controller {
 		}
 
 		$config = array();
-		$config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic';
+		$config['upload_path'] = $this->config->item('openshift_data_dir').'uploads/post_pic';
 		$config['allowed_types'] = 'png|jpg|jpeg';
 		$config['max_size']	= '16384';
 		$config['encrypt_name'] = TRUE;
@@ -82,7 +82,7 @@ class Post extends REST_Controller {
 		
 		//batch upload post pic
 		$upload_success = TRUE;
-		$file = $_FILES;
+		$files = $_FILES;
 		$upload_data = array();
 		$count = count($_FILES['post_pic']['name']);
 		for($i = 0; $i < $count; $i++) {
@@ -91,9 +91,9 @@ class Post extends REST_Controller {
 	        $_FILES['post_pic']['tmp_name']= $files['post_pic']['tmp_name'][$i];
 	        $_FILES['post_pic']['error']= $files['post_pic']['error'][$i];
 	        $_FILES['post_pic']['size']= $files['post_pic']['size'][$i]; 
-	        if($upload_success &= $this->upload->do_upload()) {
+	        if($upload_success = $upload_success && $this->upload->do_upload('post_pic')) {
 	        	$upload_data[] = $this->upload->data();
-	        	$upload_success &= $upload_data[count($upload_data) - 1]["is_image"] == "1";
+	        	$upload_success = $upload_success && $upload_data[count($upload_data) - 1]["is_image"] == "1";
 	        }
 	        if(!$upload_success) break;
 		}
@@ -101,8 +101,8 @@ class Post extends REST_Controller {
 		if($upload_success === FALSE) {
 			//remove all the upload post pic if upload fail
 			foreach($upload_data as $data)
-				if(file_exists($_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic/' . $data['orig_name']))
-					unlink($_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic/' . $data['orig_name']);
+				if(file_exists($this->config->item('openshift_data_dir').'uploads/post_pic/' . $data['file_name']))
+					unlink($this->config->item('openshift_data_dir').'uploads/post_pic/' . $data['file_name']);
 			$this->core_controller->fail_response(2, "Upload Images Failed!");
 		}
 
@@ -121,6 +121,13 @@ class Post extends REST_Controller {
 			$upload_data
 		);
 
+		if($result === FALSE) {
+			//database insertion fail, delete photo
+			foreach($upload_data as $data)
+				if(file_exists($this->config->item('openshift_data_dir').'uploads/post_pic/' . $data['file_name']))
+					unlink($this->config->item('openshift_data_dir').'uploads/post_pic/' . $data['file_name']);
+			$this->core_controller->fail_response(2, "Database Insertion Failed!");
+		}
 		/*
 		$data = array(
 			$this->post_model->KEY_caption => $this->input->post('caption'),

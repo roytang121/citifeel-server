@@ -32,7 +32,7 @@ class Post_model extends CI_Model {
 		$this->db->trans_start();
 
 		$sql = "INSERT INTO post(user_id, caption, rating, post_time, url, company, price, region) VALUES(?, ?, ?, NOW(), ?, ?, ?, ?)";
-		$query = $this->db->query($sql, array($user_id, $caption, $rating, $url, $company_id, $price, $region));
+		$query = $this->db->query($sql, array($user_id, $caption, $rating, $url, $company, $price, $region));
 		if(!$query || !$this->db->affected_rows()) {
 			return false;
 		}
@@ -62,10 +62,10 @@ class Post_model extends CI_Model {
 
 	public function getnewsfeed_posts($timestamp) {
 		$sql = "SELECT * FROM post";
-		if($timestamp) $sql .= " WHERE post_time < ?";
-		$sql .= "ORDER BY post_time DESC LIMIT 20";
+		if($timestamp && $timestamp > mktime(0, 0, 0, 6, 1, 2014)) $sql .= " WHERE post_time < ?";
+		$sql .= " ORDER BY post_time DESC LIMIT 20";
 
-		if($timestamp) $query = $this->db->query($sql, $timestamp);
+		if($timestamp && $timestamp > mktime(0, 0, 0, 6, 1, 2014)) $query = $this->db->query($sql, $timestamp);
 		else $query = $this->db->query($sql);
 
 		return $query->result_array();

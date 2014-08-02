@@ -357,6 +357,7 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-
+//$config['openshift_data_dir'] = './';
+$config['openshift_data_dir'] = $_ENV["OPENSHIFT_DATA_DIR"];
 /* End of file config.php */
 /* Location: ./application/config/config.php */

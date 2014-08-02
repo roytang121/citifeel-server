@@ -69,7 +69,7 @@ class Post extends REST_Controller {
 		}
 
 		$config = array();
-		$config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic'
+		$config['upload_path'] = $_ENV["OPENSHIFT_DATA_DIR"].'uploads/post_pic';
 		$config['allowed_types'] = 'png|jpg|jpeg';
 		$config['max_size']	= '16384';
 		$config['encrypt_name'] = TRUE;
@@ -90,7 +90,7 @@ class Post extends REST_Controller {
 	        $_FILES['post_pic']['size']= $files['post_pic']['size'][$i]; 
 	        if($upload_success &= $this->upload->do_upload()) {
 	        	$upload_data[] = $this->upload->data();
-	        	$upload_success &= $upload_data[count($upload_data) - 1]["is_image"] == "1"
+	        	$upload_success &= $upload_data[count($upload_data) - 1]["is_image"] == "1";
 	        }
 	        if(!$upload_success) break;
 		}

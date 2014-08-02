@@ -47,7 +47,7 @@ class User extends REST_Controller {
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
+			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean'), 
 			array('field' => 'username', 'label' => 'user name', 'rules' => 'trim|xss_clean'), 
 			//array('field' => 'firstname', 'label' => 'firstname', 'rules' => 'trim|required|xss_clean'), 
@@ -70,7 +70,7 @@ class User extends REST_Controller {
                 //$this->user_model->KEY_first_name => $this->input->post('firstname'),
                // $this->user_model->KEY_last_name => $this->input->post('lastname'),
         		$this->user_model->KEY_user_name => $this->input->post('username'),
-                $this->user_model->KEY_password => $this->input->post('password'),
+                $this->user_model->KEY_password => hash("sha512", $this->config->item('encryption_key') . $this->input->post('password')),
                 $this->user_model->KEY_email => $this->input->post('email')
         );
         $user_id = $this->user_model->add_user($data);
@@ -149,7 +149,7 @@ class User extends REST_Controller {
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean|md5'), 
+			array('field' => 'password', 'label' => 'password', 'rules' => 'trim|required|xss_clean'), 
 			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|xss_clean')
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
@@ -166,7 +166,9 @@ class User extends REST_Controller {
 			// email does not exist
 			$this->core_controller->fail_response(3);
 		}
-		if ($user_data[$this->user_model->KEY_password] != $this->input->post('password')) {
+
+		$password_hash = hash("sha512", $this->config->item('encryption_key') . $this->input->post('password'));
+		if ($user_data[$this->user_model->KEY_password] != $password_hash) {
 			// wrong password
 			$this->core_controller->fail_response(4);
 		}

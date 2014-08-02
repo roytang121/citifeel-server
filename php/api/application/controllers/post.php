@@ -37,6 +37,9 @@ class Post extends REST_Controller {
 		$timestamp = $this->input->get("timestamp");
 		if($timestamp) intval($timestamp);
 
+		//load post
+		$this->load->model('post_model');
+
 		$posts = $this->post_model->getnewsfeed_posts($timestamp);
 
 		$this->core_controller->add_return_data('posts', $posts);

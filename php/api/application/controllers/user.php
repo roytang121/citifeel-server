@@ -270,6 +270,32 @@ class User extends REST_Controller {
 		
 	}
 
+	public function recovery_get($email = "", $hash = "") {
+		$this->load->model('user_model');
+
+		if($this->user_model->validate_recovery($email, $hash)) {
+			$this->core_controller->successfully_processed();
+		}
+		else {
+			$this->core_controller->fail_response(2, "Recovery not authorized.");
+		}
+	}
+
+	public function recovery_post($email = "") {
+		$this->load->model('user_model');
+
+		$user = $this->user_model->get_user_by_email($email);
+
+		if(count($user) > 0) {
+			$this->user_model->password_recovery($email);
+
+			$this->core_controller->successfully_processed();
+		}
+		else {
+			$this->core_controller->fail_response(2, "User not found.");
+		}
+	}
+
 	/**
 	*  DESC: get profile information for a specific user
 	*  INPUT: user_id

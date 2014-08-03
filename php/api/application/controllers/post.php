@@ -197,8 +197,8 @@ class Post extends REST_Controller {
 		// Validation
 		$this->load->library('form_validation');
 		$validation_config = array(
-			array('field' => 'tag_id', 'label' => 'Tag id', 'rules' => 'trim|xss_clean'), 
-			array('field' => 'user_id', 'label' => 'User id', 'rules' => 'trim|xss_clean')
+			array('field' => 'tag[]', 'label' => 'Tag id', 'rules' => 'trim|xss_clean'), 
+			//array('field' => 'user_id', 'label' => 'User id', 'rules' => 'trim|xss_clean')
 		);
 		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
 		if ($this->form_validation->run() === FALSE) {

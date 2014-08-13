@@ -281,7 +281,17 @@ class User extends REST_Controller {
 		}
 	}
 
-	public function recovery_post($email = "") {
+	public function recovery_post() {
+		$validation_config = array(
+			array('field' => 'email', 'label' => 'email', 'rules' => 'trim|xss_clean|valid_email')
+		);
+		$this->form_validation->set_error_delimiters('', '')->set_rules($validation_config);
+		if ($this->form_validation->run() === FALSE) {
+			$this->core_controller->fail_response(2, validation_errors());
+		}
+
+		$email = $this->input->post('email');
+
 		$this->load->model('user_model');
 
 		$user = $this->user_model->get_user_by_email($email);

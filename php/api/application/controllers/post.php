@@ -60,7 +60,8 @@ class Post extends REST_Controller {
 		$this->load->library('form_validation');
 		$validation_config = array(
 			array('field' => 'caption', 'label' => 'caption', 'rules' => 'trim|xss_clean'),
-			array('field' => 'company', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
+			array('field' => 'company', 'label' => 'company', 'rules' => 'trim|xss_clean'),
+			array('field' => 'company_id', 'label' => 'company id', 'rules' => 'trim|xss_clean'),
 			array('field' => 'rating', 'label' => 'rating', 'rules' => 'trim|xss_clean|numeric'),
 			array('field' => 'price', 'label' => 'Price', 'rules' => 'trim|xss_clean'),
 			array('field' => 'url', 'label' => 'URL', 'rules' => 'trim|xss_clean'),
@@ -114,6 +115,7 @@ class Post extends REST_Controller {
 			$user_id,
 			$this->input->post("caption"),
 			$this->input->post("company"),
+			$this->input->post("company_id"),
 			$this->input->post("rating"),
 			$this->input->post("price"),
 			$this->input->post("url"),
@@ -192,7 +194,7 @@ class Post extends REST_Controller {
 	*  INPUT: tag_id, user_id, business_user_id
     *  DESC: All inputs are optional, and-relationship, ignore if missing
 	*/
-	public function search_post()
+	public function search_get()
 	{
 		// Validation
 		$this->load->library('form_validation');
@@ -205,11 +207,19 @@ class Post extends REST_Controller {
 			$this->core_controller->fail_response(2, validation_errors());
 		}
 		
-		
-		
+		$this->load->model('post_model');
+		$posts = $this->post_model->search($this->input->get('tag'));
+
+		$this->core_controller->add_return_data('posts', $posts);
 		$this->core_controller->successfully_processed();
 	}
 	
+	public function tags() {
+		$tags = $this->tag_model->get_all_tag();
+
+		$this->core_controller->add_return_data('tags', $tags);
+		$this->core_controller->successfully_processed();		
+	}
 	
 	
 	/****************

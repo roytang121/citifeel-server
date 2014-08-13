@@ -28,9 +28,13 @@ class Post_model extends CI_Model {
 		}
 	}*/
 
-	public function create_post($user_id, $caption, $company, $rating, $price, $url, $region, $upload_data) {
+	public function create_post($user_id, $caption, $company, $company_id, $rating, $price, $url, $region, $upload_data) {
 		$this->db->trans_start();
 
+		$sql = "SELECT 1 FROM company WHERE company_id = ?";
+		$query = $this->db->query($sql, array($company_id));
+
+		
 		$sql = "INSERT INTO post(user_id, caption, rating, post_time, url, company, price, region) VALUES(?, ?, ?, NOW(), ?, ?, ?, ?)";
 		$query = $this->db->query($sql, array($user_id, $caption, $rating, $url, $company, $price, $region));
 		if(!$query || !$this->db->affected_rows()) {
@@ -69,6 +73,35 @@ class Post_model extends CI_Model {
 		else $query = $this->db->query($sql);
 
 		return $query->result_array();
+	}
+
+	public function search($tags) {
+		$placeholder = "";
+
+		//no tag id provided
+		if(count($tags) == 0) return array();
+
+		for($i = 0; $i < count($tags); $i++) $placeholder .= "?, ";
+		$placeholder = substr($placeholder, 0, -2);
+
+		$sql = "SELECT post.*
+		FROM post
+		INNER JOIN
+		  ( SELECT post_tag.post_id,
+		           count(post_tag.tag_id)
+		   FROM post_tag
+		   INNER JOIN
+		     ( SELECT tag.tag_id
+		      FROM tag
+		      WHERE tag.name IN ($placeholder) ) AS tag ON post_tag.tag_id = tag.tag_id
+		   GROUP BY post_id
+		   ORDER BY COUNT(post_id)) AS post_tag ON post_tag.post_id = post.post_id
+		ORDER BY post_time DESC LIMIT 20";
+
+		$query = $this->db->query($sql, $tags);
+
+		return $query->result_array();
+
 	}
 	
 }
